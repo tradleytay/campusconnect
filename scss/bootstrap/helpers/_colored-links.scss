@@ -1,0 +1,12 @@
+@each Kcolor, Kvalue in Ktheme-colors {
+  .link-#{Kcolor} {
+    color: Kvalue;
+
+    @if Klink-shade-percentage != 0 {
+      &:hover,
+      &:focus {
+        color: if(color-contrast(Kvalue) == Kcolor-contrast-light, shade-color(Kvalue, Klink-shade-percentage), tint-color(Kvalue, Klink-shade-percentage));
+      }
+    }
+  }
+}

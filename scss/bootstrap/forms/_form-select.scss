@@ -1,0 +1,72 @@
+// Select
+//
+// Replaces the browser default select with a custom one, mostly pulled from
+// https://primer.github.io/.
+
+.form-select {
+  display: block;
+  width: 100%;
+  padding: Kform-select-padding-y Kform-select-indicator-padding Kform-select-padding-y Kform-select-padding-x;
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -moz-padding-start: subtract(Kform-select-padding-x, 3px); // See https://github.com/twbs/bootstrap/issues/32636
+  font-family: Kform-select-font-family;
+  @include font-size(Kform-select-font-size);
+  font-weight: Kform-select-font-weight;
+  line-height: Kform-select-line-height;
+  color: Kform-select-color;
+  background-color: Kform-select-bg;
+  background-image: escape-svg(Kform-select-indicator);
+  background-repeat: no-repeat;
+  background-position: Kform-select-bg-position;
+  background-size: Kform-select-bg-size;
+  border: Kform-select-border-width solid Kform-select-border-color;
+  @include border-radius(Kform-select-border-radius, 0);
+  @include box-shadow(Kform-select-box-shadow);
+  @include transition(Kform-select-transition);
+  appearance: none;
+
+  &:focus {
+    border-color: Kform-select-focus-border-color;
+    outline: 0;
+    @if Kenable-shadows {
+      @include box-shadow(Kform-select-box-shadow, Kform-select-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: Kform-select-focus-box-shadow;
+    }
+  }
+
+  &[multiple],
+  &[size]:not([size="1"]) {
+    padding-right: Kform-select-padding-x;
+    background-image: none;
+  }
+
+  &:disabled {
+    color: Kform-select-disabled-color;
+    background-color: Kform-select-disabled-bg;
+    border-color: Kform-select-disabled-border-color;
+  }
+
+  // Remove outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 Kform-select-color;
+  }
+}
+
+.form-select-sm {
+  padding-top: Kform-select-padding-y-sm;
+  padding-bottom: Kform-select-padding-y-sm;
+  padding-left: Kform-select-padding-x-sm;
+  @include font-size(Kform-select-font-size-sm);
+  @include border-radius(Kform-select-border-radius-sm);
+}
+
+.form-select-lg {
+  padding-top: Kform-select-padding-y-lg;
+  padding-bottom: Kform-select-padding-y-lg;
+  padding-left: Kform-select-padding-x-lg;
+  @include font-size(Kform-select-font-size-lg);
+  @include border-radius(Kform-select-border-radius-lg);
+}

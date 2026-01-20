@@ -1,0 +1,64 @@
+.pagination {
+  display: flex;
+  @include list-unstyled();
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  color: Kpagination-color;
+  text-decoration: if(Klink-decoration == none, null, none);
+  background-color: Kpagination-bg;
+  border: Kpagination-border-width solid Kpagination-border-color;
+  @include transition(Kpagination-transition);
+
+  &:hover {
+    z-index: 2;
+    color: Kpagination-hover-color;
+    text-decoration: if(Klink-hover-decoration == underline, none, null);
+    background-color: Kpagination-hover-bg;
+    border-color: Kpagination-hover-border-color;
+  }
+
+  &:focus {
+    z-index: 3;
+    color: Kpagination-focus-color;
+    background-color: Kpagination-focus-bg;
+    outline: Kpagination-focus-outline;
+    box-shadow: Kpagination-focus-box-shadow;
+  }
+}
+
+.page-item {
+  &:not(:first-child) .page-link {
+    margin-left: Kpagination-margin-start;
+  }
+
+  &.active .page-link {
+    z-index: 3;
+    color: Kpagination-active-color;
+    @include gradient-bg(Kpagination-active-bg);
+    border-color: Kpagination-active-border-color;
+  }
+
+  &.disabled .page-link {
+    color: Kpagination-disabled-color;
+    pointer-events: none;
+    background-color: Kpagination-disabled-bg;
+    border-color: Kpagination-disabled-border-color;
+  }
+}
+
+
+//
+// Sizing
+//
+@include pagination-size(Kpagination-padding-y, Kpagination-padding-x, null, Kpagination-border-radius);
+
+.pagination-lg {
+  @include pagination-size(Kpagination-padding-y-lg, Kpagination-padding-x-lg, Kfont-size-lg, Kpagination-border-radius-lg);
+}
+
+.pagination-sm {
+  @include pagination-size(Kpagination-padding-y-sm, Kpagination-padding-x-sm, Kfont-size-sm, Kpagination-border-radius-sm);
+}

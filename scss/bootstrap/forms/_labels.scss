@@ -1,0 +1,36 @@
+//
+// Labels
+//
+
+.form-label {
+  margin-bottom: Kform-label-margin-bottom;
+  @include font-size(Kform-label-font-size);
+  font-style: Kform-label-font-style;
+  font-weight: Kform-label-font-weight;
+  color: Kform-label-color;
+}
+
+// For use with horizontal and inline forms, when you need the label (or legend)
+// text to align with the form controls.
+.col-form-label {
+  padding-top: add(Kinput-padding-y, Kinput-border-width);
+  padding-bottom: add(Kinput-padding-y, Kinput-border-width);
+  margin-bottom: 0; // Override the `<legend>` default
+  @include font-size(inherit); // Override the `<legend>` default
+  font-style: Kform-label-font-style;
+  font-weight: Kform-label-font-weight;
+  line-height: Kinput-line-height;
+  color: Kform-label-color;
+}
+
+.col-form-label-lg {
+  padding-top: add(Kinput-padding-y-lg, Kinput-border-width);
+  padding-bottom: add(Kinput-padding-y-lg, Kinput-border-width);
+  @include font-size(Kinput-font-size-lg);
+}
+
+.col-form-label-sm {
+  padding-top: add(Kinput-padding-y-sm, Kinput-border-width);
+  padding-bottom: add(Kinput-padding-y-sm, Kinput-border-width);
+  @include font-size(Kinput-font-size-sm);
+}

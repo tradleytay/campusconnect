@@ -1,0 +1,64 @@
+// scss-docs-start caret-mixins
+@mixin caret-down {
+  border-top: Kcaret-width solid;
+  border-right: Kcaret-width solid transparent;
+  border-bottom: 0;
+  border-left: Kcaret-width solid transparent;
+}
+
+@mixin caret-up {
+  border-top: 0;
+  border-right: Kcaret-width solid transparent;
+  border-bottom: Kcaret-width solid;
+  border-left: Kcaret-width solid transparent;
+}
+
+@mixin caret-end {
+  border-top: Kcaret-width solid transparent;
+  border-right: 0;
+  border-bottom: Kcaret-width solid transparent;
+  border-left: Kcaret-width solid;
+}
+
+@mixin caret-start {
+  border-top: Kcaret-width solid transparent;
+  border-right: Kcaret-width solid;
+  border-bottom: Kcaret-width solid transparent;
+}
+
+@mixin caret(Kdirection: down) {
+  @if Kenable-caret {
+    &::after {
+      display: inline-block;
+      margin-left: Kcaret-spacing;
+      vertical-align: Kcaret-vertical-align;
+      content: "";
+      @if Kdirection == down {
+        @include caret-down();
+      } @else if Kdirection == up {
+        @include caret-up();
+      } @else if Kdirection == end {
+        @include caret-end();
+      }
+    }
+
+    @if Kdirection == start {
+      &::after {
+        display: none;
+      }
+
+      &::before {
+        display: inline-block;
+        margin-right: Kcaret-spacing;
+        vertical-align: Kcaret-vertical-align;
+        content: "";
+        @include caret-start();
+      }
+    }
+
+    &:empty::after {
+      margin-left: 0;
+    }
+  }
+}
+// scss-docs-end caret-mixins

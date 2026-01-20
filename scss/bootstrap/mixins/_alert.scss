@@ -1,0 +1,11 @@
+// scss-docs-start alert-variant-mixin
+@mixin alert-variant(Kbackground, Kborder, Kcolor) {
+  color: Kcolor;
+  @include gradient-bg(Kbackground);
+  border-color: Kborder;
+
+  .alert-link {
+    color: shade-color(Kcolor, 20%);
+  }
+}
+// scss-docs-end alert-variant-mixin

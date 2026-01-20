@@ -1,0 +1,41 @@
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+@if Kenable-grid-classes {
+  // Single container class with breakpoint max-widths
+  .container,
+  // 100% wide container at all breakpoints
+  .container-fluid {
+    @include make-container();
+  }
+
+  // Responsive containers that are 100% wide until a breakpoint
+  @each Kbreakpoint, Kcontainer-max-width in Kcontainer-max-widths {
+    .container-#{Kbreakpoint} {
+      @extend .container-fluid;
+    }
+
+    @include media-breakpoint-up(Kbreakpoint, Kgrid-breakpoints) {
+      %responsive-container-#{Kbreakpoint} {
+        max-width: Kcontainer-max-width;
+      }
+
+      // Extend each breakpoint which is smaller or equal to the current breakpoint
+      Kextend-breakpoint: true;
+
+      @each Kname, Kwidth in Kgrid-breakpoints {
+        @if (Kextend-breakpoint) {
+          .container#{breakpoint-infix(Kname, Kgrid-breakpoints)} {
+            @extend %responsive-container-#{Kbreakpoint};
+          }
+
+          // Once the current breakpoint is reached, stop extending
+          @if (Kbreakpoint == Kname) {
+            Kextend-breakpoint: false;
+          }
+        }
+      }
+    }
+  }
+}

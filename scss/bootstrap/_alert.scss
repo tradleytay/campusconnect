@@ -1,0 +1,57 @@
+//
+// Base styles
+//
+
+.alert {
+  position: relative;
+  padding: Kalert-padding-y Kalert-padding-x;
+  margin-bottom: Kalert-margin-bottom;
+  border: Kalert-border-width solid transparent;
+  @include border-radius(Kalert-border-radius);
+}
+
+// Headings for larger alerts
+.alert-heading {
+  // Specified to prevent conflicts of changing Kheadings-color
+  color: inherit;
+}
+
+// Provide class for links that match alerts
+.alert-link {
+  font-weight: Kalert-link-font-weight;
+}
+
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.alert-dismissible {
+  padding-right: Kalert-dismissible-padding-r;
+
+  // Adjust close link position
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: Kstretched-link-z-index + 1;
+    padding: Kalert-padding-y * 1.25 Kalert-padding-x;
+  }
+}
+
+
+// scss-docs-start alert-modifiers
+// Generate contextual modifier classes for colorizing the alert.
+
+@each Kstate, Kvalue in Ktheme-colors {
+  Kalert-background: shift-color(Kvalue, Kalert-bg-scale);
+  Kalert-border: shift-color(Kvalue, Kalert-border-scale);
+  Kalert-color: shift-color(Kvalue, Kalert-color-scale);
+  @if (contrast-ratio(Kalert-background, Kalert-color) < Kmin-contrast-ratio) {
+    Kalert-color: mix(Kvalue, color-contrast(Kalert-background), abs(Kalert-color-scale));
+  }
+  .alert-#{Kstate} {
+    @include alert-variant(Kalert-background, Kalert-border, Kalert-color);
+  }
+}
+// scss-docs-end alert-modifiers

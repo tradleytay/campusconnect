@@ -1,0 +1,78 @@
+// stylelint-disable property-disallowed-list
+// Single side border-radius
+
+// Helper function to replace negative values with 0
+@function valid-radius(Kradius) {
+  Kreturn: ();
+  @each Kvalue in Kradius {
+    @if type-of(Kvalue) == number {
+      Kreturn: append(Kreturn, max(Kvalue, 0));
+    } @else {
+      Kreturn: append(Kreturn, Kvalue);
+    }
+  }
+  @return Kreturn;
+}
+
+// scss-docs-start border-radius-mixins
+@mixin border-radius(Kradius: Kborder-radius, Kfallback-border-radius: false) {
+  @if Kenable-rounded {
+    border-radius: valid-radius(Kradius);
+  }
+  @else if Kfallback-border-radius != false {
+    border-radius: Kfallback-border-radius;
+  }
+}
+
+@mixin border-top-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-top-left-radius: valid-radius(Kradius);
+    border-top-right-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-end-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-top-right-radius: valid-radius(Kradius);
+    border-bottom-right-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-bottom-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-bottom-right-radius: valid-radius(Kradius);
+    border-bottom-left-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-start-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-top-left-radius: valid-radius(Kradius);
+    border-bottom-left-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-top-start-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-top-left-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-top-end-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-top-right-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-bottom-end-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-bottom-right-radius: valid-radius(Kradius);
+  }
+}
+
+@mixin border-bottom-start-radius(Kradius: Kborder-radius) {
+  @if Kenable-rounded {
+    border-bottom-left-radius: valid-radius(Kradius);
+  }
+}
+// scss-docs-end border-radius-mixins

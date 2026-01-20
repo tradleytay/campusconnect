@@ -1,0 +1,152 @@
+//
+// Check/radio
+//
+
+.form-check {
+  display: block;
+  min-height: Kform-check-min-height;
+  padding-left: Kform-check-padding-start;
+  margin-bottom: Kform-check-margin-bottom;
+
+  .form-check-input {
+    float: left;
+    margin-left: Kform-check-padding-start * -1;
+  }
+}
+
+.form-check-input {
+  width: Kform-check-input-width;
+  height: Kform-check-input-width;
+  margin-top: (Kline-height-base - Kform-check-input-width) * .5; // line-height minus check height
+  vertical-align: top;
+  background-color: Kform-check-input-bg;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: Kform-check-input-border;
+  appearance: none;
+  color-adjust: exact; // Keep themed appearance for print
+  @include transition(Kform-check-transition);
+
+  &[type="checkbox"] {
+    @include border-radius(Kform-check-input-border-radius);
+  }
+
+  &[type="radio"] {
+    // stylelint-disable-next-line property-disallowed-list
+    border-radius: Kform-check-radio-border-radius;
+  }
+
+  &:active {
+    filter: Kform-check-input-active-filter;
+  }
+
+  &:focus {
+    border-color: Kform-check-input-focus-border;
+    outline: 0;
+    box-shadow: Kform-check-input-focus-box-shadow;
+  }
+
+  &:checked {
+    background-color: Kform-check-input-checked-bg-color;
+    border-color: Kform-check-input-checked-border-color;
+
+    &[type="checkbox"] {
+      @if Kenable-gradients {
+        background-image: escape-svg(Kform-check-input-checked-bg-image), var(--#{Kvariable-prefix}gradient);
+      } @else {
+        background-image: escape-svg(Kform-check-input-checked-bg-image);
+      }
+    }
+
+    &[type="radio"] {
+      @if Kenable-gradients {
+        background-image: escape-svg(Kform-check-radio-checked-bg-image), var(--#{Kvariable-prefix}gradient);
+      } @else {
+        background-image: escape-svg(Kform-check-radio-checked-bg-image);
+      }
+    }
+  }
+
+  &[type="checkbox"]:indeterminate {
+    background-color: Kform-check-input-indeterminate-bg-color;
+    border-color: Kform-check-input-indeterminate-border-color;
+
+    @if Kenable-gradients {
+      background-image: escape-svg(Kform-check-input-indeterminate-bg-image), var(--#{Kvariable-prefix}gradient);
+    } @else {
+      background-image: escape-svg(Kform-check-input-indeterminate-bg-image);
+    }
+  }
+
+  &:disabled {
+    pointer-events: none;
+    filter: none;
+    opacity: Kform-check-input-disabled-opacity;
+  }
+
+  // Use disabled attribute in addition of :disabled pseudo-class
+  // See: https://github.com/twbs/bootstrap/issues/28247
+  &[disabled],
+  &:disabled {
+    ~ .form-check-label {
+      opacity: Kform-check-label-disabled-opacity;
+    }
+  }
+}
+
+.form-check-label {
+  color: Kform-check-label-color;
+  cursor: Kform-check-label-cursor;
+}
+
+//
+// Switch
+//
+
+.form-switch {
+  padding-left: Kform-switch-padding-start;
+
+  .form-check-input {
+    width: Kform-switch-width;
+    margin-left: Kform-switch-padding-start * -1;
+    background-image: escape-svg(Kform-switch-bg-image);
+    background-position: left center;
+    @include border-radius(Kform-switch-border-radius);
+    @include transition(Kform-switch-transition);
+
+    &:focus {
+      background-image: escape-svg(Kform-switch-focus-bg-image);
+    }
+
+    &:checked {
+      background-position: Kform-switch-checked-bg-position;
+
+      @if Kenable-gradients {
+        background-image: escape-svg(Kform-switch-checked-bg-image), var(--#{Kvariable-prefix}gradient);
+      } @else {
+        background-image: escape-svg(Kform-switch-checked-bg-image);
+      }
+    }
+  }
+}
+
+.form-check-inline {
+  display: inline-block;
+  margin-right: Kform-check-inline-margin-end;
+}
+
+.btn-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+
+  &[disabled],
+  &:disabled {
+    + .btn {
+      pointer-events: none;
+      filter: none;
+      opacity: Kform-check-btn-check-disabled-opacity;
+    }
+  }
+}

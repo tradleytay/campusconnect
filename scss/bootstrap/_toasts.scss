@@ -1,0 +1,51 @@
+.toast {
+  width: Ktoast-max-width;
+  max-width: 100%;
+  @include font-size(Ktoast-font-size);
+  color: Ktoast-color;
+  pointer-events: auto;
+  background-color: Ktoast-background-color;
+  background-clip: padding-box;
+  border: Ktoast-border-width solid Ktoast-border-color;
+  box-shadow: Ktoast-box-shadow;
+  @include border-radius(Ktoast-border-radius);
+
+  &.showing {
+    opacity: 0;
+  }
+
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.toast-container {
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none;
+
+  > :not(:last-child) {
+    margin-bottom: Ktoast-spacing;
+  }
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  padding: Ktoast-padding-y Ktoast-padding-x;
+  color: Ktoast-header-color;
+  background-color: Ktoast-header-background-color;
+  background-clip: padding-box;
+  border-bottom: Ktoast-border-width solid Ktoast-header-border-color;
+  @include border-top-radius(subtract(Ktoast-border-radius, Ktoast-border-width));
+
+  .btn-close {
+    margin-right: Ktoast-padding-x * -.5;
+    margin-left: Ktoast-padding-x;
+  }
+}
+
+.toast-body {
+  padding: Ktoast-padding-x; // apply to both vertical and horizontal
+  word-wrap: break-word;
+}

@@ -1,0 +1,144 @@
+// This mixin uses an `if()` technique to be compatible with Dart Sass
+// See https://github.com/sass/sass/issues/1873#issuecomment-152293725 for more details
+
+// scss-docs-start form-validation-mixins
+@mixin form-validation-state-selector(Kstate) {
+  @if (Kstate == "valid" or Kstate == "invalid") {
+    .was-validated #{if(&, "&", "")}:#{Kstate},
+    #{if(&, "&", "")}.is-#{Kstate} {
+      @content;
+    }
+  } @else {
+    #{if(&, "&", "")}.is-#{Kstate} {
+      @content;
+    }
+  }
+}
+
+@mixin form-validation-state(
+  Kstate,
+  Kcolor,
+  Kicon,
+  Ktooltip-color: color-contrast(Kcolor),
+  Ktooltip-bg-color: rgba(Kcolor, Kform-feedback-tooltip-opacity),
+  Kfocus-box-shadow: 0 0 Kinput-btn-focus-blur Kinput-focus-width rgba(Kcolor, Kinput-btn-focus-color-opacity)
+) {
+  .#{Kstate}-feedback {
+    display: none;
+    width: 100%;
+    margin-top: Kform-feedback-margin-top;
+    @include font-size(Kform-feedback-font-size);
+    font-style: Kform-feedback-font-style;
+    color: Kcolor;
+  }
+
+  .#{Kstate}-tooltip {
+    position: absolute;
+    top: 100%;
+    z-index: 5;
+    display: none;
+    max-width: 100%; // Contain to parent when possible
+    padding: Kform-feedback-tooltip-padding-y Kform-feedback-tooltip-padding-x;
+    margin-top: .1rem;
+    @include font-size(Kform-feedback-tooltip-font-size);
+    line-height: Kform-feedback-tooltip-line-height;
+    color: Ktooltip-color;
+    background-color: Ktooltip-bg-color;
+    @include border-radius(Kform-feedback-tooltip-border-radius);
+  }
+
+  @include form-validation-state-selector(Kstate) {
+    ~ .#{Kstate}-feedback,
+    ~ .#{Kstate}-tooltip {
+      display: block;
+    }
+  }
+
+  .form-control {
+    @include form-validation-state-selector(Kstate) {
+      border-color: Kcolor;
+
+      @if Kenable-validation-icons {
+        padding-right: Kinput-height-inner;
+        background-image: escape-svg(Kicon);
+        background-repeat: no-repeat;
+        background-position: right Kinput-height-inner-quarter center;
+        background-size: Kinput-height-inner-half Kinput-height-inner-half;
+      }
+
+      &:focus {
+        border-color: Kcolor;
+        box-shadow: Kfocus-box-shadow;
+      }
+    }
+  }
+
+  // stylelint-disable-next-line selector-no-qualifying-type
+  textarea.form-control {
+    @include form-validation-state-selector(Kstate) {
+      @if Kenable-validation-icons {
+        padding-right: Kinput-height-inner;
+        background-position: top Kinput-height-inner-quarter right Kinput-height-inner-quarter;
+      }
+    }
+  }
+
+  .form-select {
+    @include form-validation-state-selector(Kstate) {
+      border-color: Kcolor;
+
+      @if Kenable-validation-icons {
+        &:not([multiple]):not([size]),
+        &:not([multiple])[size="1"] {
+          padding-right: Kform-select-feedback-icon-padding-end;
+          background-image: escape-svg(Kform-select-indicator), escape-svg(Kicon);
+          background-position: Kform-select-bg-position, Kform-select-feedback-icon-position;
+          background-size: Kform-select-bg-size, Kform-select-feedback-icon-size;
+        }
+      }
+
+      &:focus {
+        border-color: Kcolor;
+        box-shadow: Kfocus-box-shadow;
+      }
+    }
+  }
+
+  .form-check-input {
+    @include form-validation-state-selector(Kstate) {
+      border-color: Kcolor;
+
+      &:checked {
+        background-color: Kcolor;
+      }
+
+      &:focus {
+        box-shadow: Kfocus-box-shadow;
+      }
+
+      ~ .form-check-label {
+        color: Kcolor;
+      }
+    }
+  }
+  .form-check-inline .form-check-input {
+    ~ .#{Kstate}-feedback {
+      margin-left: .5em;
+    }
+  }
+
+  .input-group .form-control,
+  .input-group .form-select {
+    @include form-validation-state-selector(Kstate) {
+      @if Kstate == "valid" {
+        z-index: 1;
+      } @else if Kstate == "invalid" {
+        z-index: 2;
+      }
+      &:focus {
+        z-index: 3;
+      }
+    }
+  }
+}
+// scss-docs-end form-validation-mixins

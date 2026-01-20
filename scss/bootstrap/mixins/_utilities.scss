@@ -1,0 +1,89 @@
+// Utility generator
+// Used to generate utilities & print utilities
+@mixin generate-utility(Kutility, Kinfix, Kis-rfs-media-query: false) {
+  Kvalues: map-get(Kutility, values);
+
+  // If the values are a list or string, convert it into a map
+  @if type-of(Kvalues) == "string" or type-of(nth(Kvalues, 1)) != "list" {
+    Kvalues: zip(Kvalues, Kvalues);
+  }
+
+  @each Kkey, Kvalue in Kvalues {
+    Kproperties: map-get(Kutility, property);
+
+    // Multiple properties are possible, for example with vertical or horizontal margins or paddings
+    @if type-of(Kproperties) == "string" {
+      Kproperties: append((), Kproperties);
+    }
+
+    // Use custom class if present
+    Kproperty-class: if(map-has-key(Kutility, class), map-get(Kutility, class), nth(Kproperties, 1));
+    Kproperty-class: if(Kproperty-class == null, "", Kproperty-class);
+
+    // State params to generate pseudo-classes
+    Kstate: if(map-has-key(Kutility, state), map-get(Kutility, state), ());
+
+    Kinfix: if(Kproperty-class == "" and str-slice(Kinfix, 1, 1) == "-", str-slice(Kinfix, 2), Kinfix);
+
+    // Don't prefix if value key is null (eg. with shadow class)
+    Kproperty-class-modifier: if(Kkey, if(Kproperty-class == "" and Kinfix == "", "", "-") + Kkey, "");
+
+    @if map-get(Kutility, rfs) {
+      // Inside the media query
+      @if Kis-rfs-media-query {
+        Kval: rfs-value(Kvalue);
+
+        // Do not render anything if fluid and non fluid values are the same
+        Kvalue: if(Kval == rfs-fluid-value(Kvalue), null, Kval);
+      }
+      @else {
+        Kvalue: rfs-fluid-value(Kvalue);
+      }
+    }
+
+    Kis-css-var: map-get(Kutility, css-var);
+    Kis-local-vars: map-get(Kutility, local-vars);
+    Kis-rtl: map-get(Kutility, rtl);
+
+    @if Kvalue != null {
+      @if Kis-rtl == false {
+        /* rtl:begin:remove */
+      }
+
+      @if Kis-css-var {
+        .#{Kproperty-class + Kinfix + Kproperty-class-modifier} {
+          --#{Kvariable-prefix}#{Kproperty-class}: #{Kvalue};
+        }
+
+        @each Kpseudo in Kstate {
+          .#{Kproperty-class + Kinfix + Kproperty-class-modifier}-#{Kpseudo}:#{Kpseudo} {
+            --#{Kvariable-prefix}#{Kproperty-class}: #{Kvalue};
+          }
+        }
+      } @else {
+        .#{Kproperty-class + Kinfix + Kproperty-class-modifier} {
+          @each Kproperty in Kproperties {
+            @if Kis-local-vars {
+              @each Klocal-var, Kvalue in Kis-local-vars {
+                --#{Kvariable-prefix}#{Klocal-var}: #{Kvalue};
+              }
+            }
+            #{Kproperty}: Kvalue if(Kenable-important-utilities, !important, null);
+          }
+        }
+
+        @each Kpseudo in Kstate {
+          .#{Kproperty-class + Kinfix + Kproperty-class-modifier}-#{Kpseudo}:#{Kpseudo} {
+            @each Kproperty in Kproperties {
+              #{Kproperty}: Kvalue if(Kenable-important-utilities, !important, null);
+            }
+          }
+        }
+      }
+
+      @if Kis-rtl == false {
+        /* rtl:end:remove */
+      }
+    }
+  }
+}

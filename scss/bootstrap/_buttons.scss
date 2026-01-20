@@ -1,0 +1,111 @@
+//
+// Base styles
+//
+
+.btn {
+  display: inline-block;
+  font-family: Kbtn-font-family;
+  font-weight: Kbtn-font-weight;
+  line-height: Kbtn-line-height;
+  color: Kbody-color;
+  text-align: center;
+  text-decoration: if(Klink-decoration == none, null, none);
+  white-space: Kbtn-white-space;
+  vertical-align: middle;
+  cursor: if(Kenable-button-pointers, pointer, null);
+  user-select: none;
+  background-color: transparent;
+  border: Kbtn-border-width solid transparent;
+  @include button-size(Kbtn-padding-y, Kbtn-padding-x, Kbtn-font-size, Kbtn-border-radius);
+  @include transition(Kbtn-transition);
+
+  &:hover {
+    color: Kbody-color;
+    text-decoration: if(Klink-hover-decoration == underline, none, null);
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    outline: 0;
+    box-shadow: Kbtn-focus-box-shadow;
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active {
+    @include box-shadow(Kbtn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow(Kbtn-focus-box-shadow, Kbtn-active-box-shadow);
+    }
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    pointer-events: none;
+    opacity: Kbtn-disabled-opacity;
+    @include box-shadow(none);
+  }
+}
+
+
+//
+// Alternate buttons
+//
+
+// scss-docs-start btn-variant-loops
+@each Kcolor, Kvalue in Ktheme-colors {
+  .btn-#{Kcolor} {
+    @include button-variant(Kvalue, Kvalue);
+  }
+}
+
+@each Kcolor, Kvalue in Ktheme-colors {
+  .btn-outline-#{Kcolor} {
+    @include button-outline-variant(Kvalue);
+  }
+}
+// scss-docs-end btn-variant-loops
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: Kfont-weight-normal;
+  color: Kbtn-link-color;
+  text-decoration: Klink-decoration;
+
+  &:hover {
+    color: Kbtn-link-hover-color;
+    text-decoration: Klink-hover-decoration;
+  }
+
+  &:focus {
+    text-decoration: Klink-hover-decoration;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: Kbtn-link-disabled-color;
+  }
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size(Kbtn-padding-y-lg, Kbtn-padding-x-lg, Kbtn-font-size-lg, Kbtn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size(Kbtn-padding-y-sm, Kbtn-padding-x-sm, Kbtn-font-size-sm, Kbtn-border-radius-sm);
+}

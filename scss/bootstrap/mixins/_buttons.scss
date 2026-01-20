@@ -1,0 +1,133 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+// scss-docs-start btn-variant-mixin
+@mixin button-variant(
+  Kbackground,
+  Kborder,
+  Kcolor: color-contrast(Kbackground),
+  Khover-background: if(Kcolor == Kcolor-contrast-light, shade-color(Kbackground, Kbtn-hover-bg-shade-amount), tint-color(Kbackground, Kbtn-hover-bg-tint-amount)),
+  Khover-border: if(Kcolor == Kcolor-contrast-light, shade-color(Kborder, Kbtn-hover-border-shade-amount), tint-color(Kborder, Kbtn-hover-border-tint-amount)),
+  Khover-color: color-contrast(Khover-background),
+  Kactive-background: if(Kcolor == Kcolor-contrast-light, shade-color(Kbackground, Kbtn-active-bg-shade-amount), tint-color(Kbackground, Kbtn-active-bg-tint-amount)),
+  Kactive-border: if(Kcolor == Kcolor-contrast-light, shade-color(Kborder, Kbtn-active-border-shade-amount), tint-color(Kborder, Kbtn-active-border-tint-amount)),
+  Kactive-color: color-contrast(Kactive-background),
+  Kdisabled-background: Kbackground,
+  Kdisabled-border: Kborder,
+  Kdisabled-color: color-contrast(Kdisabled-background)
+) {
+  color: Kcolor;
+  @include gradient-bg(Kbackground);
+  border-color: Kborder;
+  @include box-shadow(Kbtn-box-shadow);
+
+  &:hover {
+    color: Khover-color;
+    @include gradient-bg(Khover-background);
+    border-color: Khover-border;
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    color: Khover-color;
+    @include gradient-bg(Khover-background);
+    border-color: Khover-border;
+    @if Kenable-shadows {
+      @include box-shadow(Kbtn-box-shadow, 0 0 0 Kbtn-focus-width rgba(mix(Kcolor, Kborder, 15%), .5));
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: 0 0 0 Kbtn-focus-width rgba(mix(Kcolor, Kborder, 15%), .5);
+    }
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: Kactive-color;
+    background-color: Kactive-background;
+    // Remove CSS gradients if they're enabled
+    background-image: if(Kenable-gradients, none, null);
+    border-color: Kactive-border;
+
+    &:focus {
+      @if Kenable-shadows {
+        @include box-shadow(Kbtn-active-box-shadow, 0 0 0 Kbtn-focus-width rgba(mix(Kcolor, Kborder, 15%), .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 Kbtn-focus-width rgba(mix(Kcolor, Kborder, 15%), .5);
+      }
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    color: Kdisabled-color;
+    background-color: Kdisabled-background;
+    // Remove CSS gradients if they're enabled
+    background-image: if(Kenable-gradients, none, null);
+    border-color: Kdisabled-border;
+  }
+}
+// scss-docs-end btn-variant-mixin
+
+// scss-docs-start btn-outline-variant-mixin
+@mixin button-outline-variant(
+  Kcolor,
+  Kcolor-hover: color-contrast(Kcolor),
+  Kactive-background: Kcolor,
+  Kactive-border: Kcolor,
+  Kactive-color: color-contrast(Kactive-background)
+) {
+  color: Kcolor;
+  border-color: Kcolor;
+
+  &:hover {
+    color: Kcolor-hover;
+    background-color: Kactive-background;
+    border-color: Kactive-border;
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    box-shadow: 0 0 0 Kbtn-focus-width rgba(Kcolor, .5);
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active,
+  &.dropdown-toggle.show {
+    color: Kactive-color;
+    background-color: Kactive-background;
+    border-color: Kactive-border;
+
+    &:focus {
+      @if Kenable-shadows {
+        @include box-shadow(Kbtn-active-box-shadow, 0 0 0 Kbtn-focus-width rgba(Kcolor, .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 Kbtn-focus-width rgba(Kcolor, .5);
+      }
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    color: Kcolor;
+    background-color: transparent;
+  }
+}
+// scss-docs-end btn-outline-variant-mixin
+
+// scss-docs-start btn-size-mixin
+@mixin button-size(Kpadding-y, Kpadding-x, Kfont-size, Kborder-radius) {
+  padding: Kpadding-y Kpadding-x;
+  @include font-size(Kfont-size);
+  // Manually declare to provide an override to the browser default
+  @include border-radius(Kborder-radius, 0);
+}
+// scss-docs-end btn-size-mixin

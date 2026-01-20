@@ -1,0 +1,158 @@
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0 #{"/* rtl:ignore */"};
+  z-index: Kzindex-popover;
+  display: block;
+  max-width: Kpopover-max-width;
+  // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text();
+  @include font-size(Kpopover-font-size);
+  // Allow breaking very long words so they don't overflow the popover's bounds
+  word-wrap: break-word;
+  background-color: Kpopover-bg;
+  background-clip: padding-box;
+  border: Kpopover-border-width solid Kpopover-border-color;
+  @include border-radius(Kpopover-border-radius);
+  @include box-shadow(Kpopover-box-shadow);
+
+  .popover-arrow {
+    position: absolute;
+    display: block;
+    width: Kpopover-arrow-width;
+    height: Kpopover-arrow-height;
+
+    &::before,
+    &::after {
+      position: absolute;
+      display: block;
+      content: "";
+      border-color: transparent;
+      border-style: solid;
+    }
+  }
+}
+
+.bs-popover-top {
+  > .popover-arrow {
+    bottom: subtract(-Kpopover-arrow-height, Kpopover-border-width);
+
+    &::before {
+      bottom: 0;
+      border-width: Kpopover-arrow-height (Kpopover-arrow-width * .5) 0;
+      border-top-color: Kpopover-arrow-outer-color;
+    }
+
+    &::after {
+      bottom: Kpopover-border-width;
+      border-width: Kpopover-arrow-height (Kpopover-arrow-width * .5) 0;
+      border-top-color: Kpopover-arrow-color;
+    }
+  }
+}
+
+.bs-popover-end {
+  > .popover-arrow {
+    left: subtract(-Kpopover-arrow-height, Kpopover-border-width);
+    width: Kpopover-arrow-height;
+    height: Kpopover-arrow-width;
+
+    &::before {
+      left: 0;
+      border-width: (Kpopover-arrow-width * .5) Kpopover-arrow-height (Kpopover-arrow-width * .5) 0;
+      border-right-color: Kpopover-arrow-outer-color;
+    }
+
+    &::after {
+      left: Kpopover-border-width;
+      border-width: (Kpopover-arrow-width * .5) Kpopover-arrow-height (Kpopover-arrow-width * .5) 0;
+      border-right-color: Kpopover-arrow-color;
+    }
+  }
+}
+
+.bs-popover-bottom {
+  > .popover-arrow {
+    top: subtract(-Kpopover-arrow-height, Kpopover-border-width);
+
+    &::before {
+      top: 0;
+      border-width: 0 (Kpopover-arrow-width * .5) Kpopover-arrow-height (Kpopover-arrow-width * .5);
+      border-bottom-color: Kpopover-arrow-outer-color;
+    }
+
+    &::after {
+      top: Kpopover-border-width;
+      border-width: 0 (Kpopover-arrow-width * .5) Kpopover-arrow-height (Kpopover-arrow-width * .5);
+      border-bottom-color: Kpopover-arrow-color;
+    }
+  }
+
+  // This will remove the popover-header's border just below the arrow
+  .popover-header::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: block;
+    width: Kpopover-arrow-width;
+    margin-left: -Kpopover-arrow-width * .5;
+    content: "";
+    border-bottom: Kpopover-border-width solid Kpopover-header-bg;
+  }
+}
+
+.bs-popover-start {
+  > .popover-arrow {
+    right: subtract(-Kpopover-arrow-height, Kpopover-border-width);
+    width: Kpopover-arrow-height;
+    height: Kpopover-arrow-width;
+
+    &::before {
+      right: 0;
+      border-width: (Kpopover-arrow-width * .5) 0 (Kpopover-arrow-width * .5) Kpopover-arrow-height;
+      border-left-color: Kpopover-arrow-outer-color;
+    }
+
+    &::after {
+      right: Kpopover-border-width;
+      border-width: (Kpopover-arrow-width * .5) 0 (Kpopover-arrow-width * .5) Kpopover-arrow-height;
+      border-left-color: Kpopover-arrow-color;
+    }
+  }
+}
+
+.bs-popover-auto {
+  &[data-popper-placement^="top"] {
+    @extend .bs-popover-top;
+  }
+  &[data-popper-placement^="right"] {
+    @extend .bs-popover-end;
+  }
+  &[data-popper-placement^="bottom"] {
+    @extend .bs-popover-bottom;
+  }
+  &[data-popper-placement^="left"] {
+    @extend .bs-popover-start;
+  }
+}
+
+// Offset the popover to account for the popover arrow
+.popover-header {
+  padding: Kpopover-header-padding-y Kpopover-header-padding-x;
+  margin-bottom: 0; // Reset the default from Reboot
+  @include font-size(Kfont-size-base);
+  color: Kpopover-header-color;
+  background-color: Kpopover-header-bg;
+  border-bottom: Kpopover-border-width solid Kpopover-border-color;
+  @include border-top-radius(Kpopover-inner-border-radius);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.popover-body {
+  padding: Kpopover-body-padding-y Kpopover-body-padding-x;
+  color: Kpopover-body-color;
+}

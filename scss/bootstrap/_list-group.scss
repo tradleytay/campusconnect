@@ -1,0 +1,174 @@
+// Base class
+//
+// Easily usable on <ul>, <ol>, or <div>.
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+
+  // No need to set list-style: none; since .list-group-item is block level
+  padding-left: 0; // reset padding because ul and ol
+  margin-bottom: 0;
+  @include border-radius(Klist-group-border-radius);
+}
+
+.list-group-numbered {
+  list-style-type: none;
+  counter-reset: section;
+
+  > li::before {
+    // Increments only this instance of the section counter
+    content: counters(section, ".") ". ";
+    counter-increment: section;
+  }
+}
+
+
+// Interactive list items
+//
+// Use anchor or button elements instead of `li`s or `div`s to create interactive
+// list items. Includes an extra `.active` modifier class for selected items.
+
+.list-group-item-action {
+  width: 100%; // For `<button>`s (anchors become 100% by default though)
+  color: Klist-group-action-color;
+  text-align: inherit; // For `<button>`s (anchors inherit)
+
+  // Hover state
+  &:hover,
+  &:focus {
+    z-index: 1; // Place hover/focus items above their siblings for proper border styling
+    color: Klist-group-action-hover-color;
+    text-decoration: none;
+    background-color: Klist-group-hover-bg;
+  }
+
+  &:active {
+    color: Klist-group-action-active-color;
+    background-color: Klist-group-action-active-bg;
+  }
+}
+
+
+// Individual list items
+//
+// Use on `li`s or `div`s within the `.list-group` parent.
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: Klist-group-item-padding-y Klist-group-item-padding-x;
+  color: Klist-group-color;
+  text-decoration: if(Klink-decoration == none, null, none);
+  background-color: Klist-group-bg;
+  border: Klist-group-border-width solid Klist-group-border-color;
+
+  &:first-child {
+    @include border-top-radius(inherit);
+  }
+
+  &:last-child {
+    @include border-bottom-radius(inherit);
+  }
+
+  &.disabled,
+  &:disabled {
+    color: Klist-group-disabled-color;
+    pointer-events: none;
+    background-color: Klist-group-disabled-bg;
+  }
+
+  // Include both here for `<a>`s and `<button>`s
+  &.active {
+    z-index: 2; // Place active items above their siblings for proper border styling
+    color: Klist-group-active-color;
+    background-color: Klist-group-active-bg;
+    border-color: Klist-group-active-border-color;
+  }
+
+  & + & {
+    border-top-width: 0;
+
+    &.active {
+      margin-top: -Klist-group-border-width;
+      border-top-width: Klist-group-border-width;
+    }
+  }
+}
+
+
+// Horizontal
+//
+// Change the layout of list group items from vertical (default) to horizontal.
+
+@each Kbreakpoint in map-keys(Kgrid-breakpoints) {
+  @include media-breakpoint-up(Kbreakpoint) {
+    Kinfix: breakpoint-infix(Kbreakpoint, Kgrid-breakpoints);
+
+    .list-group-horizontal#{Kinfix} {
+      flex-direction: row;
+
+      > .list-group-item {
+        &:first-child {
+          @include border-bottom-start-radius(Klist-group-border-radius);
+          @include border-top-end-radius(0);
+        }
+
+        &:last-child {
+          @include border-top-end-radius(Klist-group-border-radius);
+          @include border-bottom-start-radius(0);
+        }
+
+        &.active {
+          margin-top: 0;
+        }
+
+        + .list-group-item {
+          border-top-width: Klist-group-border-width;
+          border-left-width: 0;
+
+          &.active {
+            margin-left: -Klist-group-border-width;
+            border-left-width: Klist-group-border-width;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Flush list items
+//
+// Remove borders and border-radius to keep list group items edge-to-edge. Most
+// useful within other components (e.g., cards).
+
+.list-group-flush {
+  @include border-radius(0);
+
+  > .list-group-item {
+    border-width: 0 0 Klist-group-border-width;
+
+    &:last-child {
+      border-bottom-width: 0;
+    }
+  }
+}
+
+
+// scss-docs-start list-group-modifiers
+// List group contextual variants
+//
+// Add modifier classes to change text and background color on individual items.
+// Organizationally, this must come after the `:hover` states.
+
+@each Kstate, Kvalue in Ktheme-colors {
+  Klist-group-variant-bg: shift-color(Kvalue, Klist-group-item-bg-scale);
+  Klist-group-variant-color: shift-color(Kvalue, Klist-group-item-color-scale);
+  @if (contrast-ratio(Klist-group-variant-bg, Klist-group-variant-color) < Kmin-contrast-ratio) {
+    Klist-group-variant-color: mix(Kvalue, color-contrast(Klist-group-variant-bg), abs(Klist-group-item-color-scale));
+  }
+
+  @include list-group-item-variant(Kstate, Klist-group-variant-bg, Klist-group-variant-color);
+}
+// scss-docs-end list-group-modifiers

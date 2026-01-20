@@ -1,0 +1,155 @@
+//
+// Basic Bootstrap table
+//
+
+.table {
+  --#{Kvariable-prefix}table-bg: #{Ktable-bg};
+  --#{Kvariable-prefix}table-accent-bg: #{Ktable-accent-bg};
+  --#{Kvariable-prefix}table-striped-color: #{Ktable-striped-color};
+  --#{Kvariable-prefix}table-striped-bg: #{Ktable-striped-bg};
+  --#{Kvariable-prefix}table-active-color: #{Ktable-active-color};
+  --#{Kvariable-prefix}table-active-bg: #{Ktable-active-bg};
+  --#{Kvariable-prefix}table-hover-color: #{Ktable-hover-color};
+  --#{Kvariable-prefix}table-hover-bg: #{Ktable-hover-bg};
+
+  width: 100%;
+  margin-bottom: Kspacer;
+  color: Ktable-color;
+  vertical-align: Ktable-cell-vertical-align;
+  border-color: Ktable-border-color;
+
+  // Target th & td
+  // We need the child combinator to prevent styles leaking to nested tables which doesn't have a `.table` class.
+  // We use the universal selectors here to simplify the selector (else we would need 6 different selectors).
+  // Another advantage is that this generates less code and makes the selector less specific making it easier to override.
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    padding: Ktable-cell-padding-y Ktable-cell-padding-x;
+    background-color: var(--#{Kvariable-prefix}table-bg);
+    border-bottom-width: Ktable-border-width;
+    box-shadow: inset 0 0 0 9999px var(--#{Kvariable-prefix}table-accent-bg);
+  }
+
+  > tbody {
+    vertical-align: inherit;
+  }
+
+  > thead {
+    vertical-align: bottom;
+  }
+
+  // Highlight border color between thead, tbody and tfoot.
+  > :not(:first-child) {
+    border-top: (2 * Ktable-border-width) solid Ktable-group-separator-color;
+  }
+}
+
+
+//
+// Change placement of captions with a class
+//
+
+.caption-top {
+  caption-side: top;
+}
+
+
+//
+// Condensed table w/ half padding
+//
+
+.table-sm {
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    padding: Ktable-cell-padding-y-sm Ktable-cell-padding-x-sm;
+  }
+}
+
+
+// Border versions
+//
+// Add or remove borders all around the table and between all the columns.
+//
+// When borders are added on all sides of the cells, the corners can render odd when
+// these borders do not have the same color or if they are semi-transparent.
+// Therefor we add top and border bottoms to the `tr`s and left and right borders
+// to the `td`s or `th`s
+
+.table-bordered {
+  > :not(caption) > * {
+    border-width: Ktable-border-width 0;
+
+    // stylelint-disable-next-line selector-max-universal
+    > * {
+      border-width: 0 Ktable-border-width;
+    }
+  }
+}
+
+.table-borderless {
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    border-bottom-width: 0;
+  }
+
+  > :not(:first-child) {
+    border-top-width: 0;
+  }
+}
+
+// Zebra-striping
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+.table-striped {
+  > tbody > tr:nth-of-type(#{Ktable-striped-order}) > * {
+    --#{Kvariable-prefix}table-accent-bg: var(--#{Kvariable-prefix}table-striped-bg);
+    color: var(--#{Kvariable-prefix}table-striped-color);
+  }
+}
+
+// Active table
+//
+// The `.table-active` class can be added to highlight rows or cells
+
+.table-active {
+  --#{Kvariable-prefix}table-accent-bg: var(--#{Kvariable-prefix}table-active-bg);
+  color: var(--#{Kvariable-prefix}table-active-color);
+}
+
+// Hover effect
+//
+// Placed here since it has to come after the potential zebra striping
+
+.table-hover {
+  > tbody > tr:hover > * {
+    --#{Kvariable-prefix}table-accent-bg: var(--#{Kvariable-prefix}table-hover-bg);
+    color: var(--#{Kvariable-prefix}table-hover-color);
+  }
+}
+
+
+// Table variants
+//
+// Table variants set the table cell backgrounds, border colors
+// and the colors of the striped, hovered & active tables
+
+@each Kcolor, Kvalue in Ktable-variants {
+  @include table-variant(Kcolor, Kvalue);
+}
+
+// Responsive tables
+//
+// Generate series of `.table-responsive-*` classes for configuring the screen
+// size of where your table will overflow.
+
+@each Kbreakpoint in map-keys(Kgrid-breakpoints) {
+  Kinfix: breakpoint-infix(Kbreakpoint, Kgrid-breakpoints);
+
+  @include media-breakpoint-down(Kbreakpoint) {
+    .table-responsive#{Kinfix} {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}

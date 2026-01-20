@@ -1,0 +1,9 @@
+// Container mixins
+
+@mixin make-container(Kgutter: Kcontainer-padding-x) {
+  width: 100%;
+  padding-right: var(--#{Kvariable-prefix}gutter-x, #{Kgutter});
+  padding-left: var(--#{Kvariable-prefix}gutter-x, #{Kgutter});
+  margin-right: auto;
+  margin-left: auto;
+}

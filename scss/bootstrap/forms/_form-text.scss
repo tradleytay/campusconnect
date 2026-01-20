@@ -1,0 +1,11 @@
+//
+// Form text
+//
+
+.form-text {
+  margin-top: Kform-text-margin-top;
+  @include font-size(Kform-text-font-size);
+  font-style: Kform-text-font-style;
+  font-weight: Kform-text-font-weight;
+  color: Kform-text-color;
+}

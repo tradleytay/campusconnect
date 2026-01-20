@@ -1,0 +1,14 @@
+// Shared between modals and offcanvases
+@mixin overlay-backdrop(Kzindex, Kbackdrop-bg, Kbackdrop-opacity) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: Kzindex;
+  width: 100vw;
+  height: 100vh;
+  background-color: Kbackdrop-bg;
+
+  // Fade for backdrop
+  &.fade { opacity: 0; }
+  &.show { opacity: Kbackdrop-opacity; }
+}

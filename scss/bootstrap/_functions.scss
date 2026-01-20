@@ -1,0 +1,302 @@
+// Bootstrap functions
+//
+// Utility mixins and functions for evaluating source code across our variables, maps, and mixins.
+
+// Ascending
+// Used to evaluate Sass maps like our grid breakpoints.
+@mixin _assert-ascending(Kmap, Kmap-name) {
+  Kprev-key: null;
+  Kprev-num: null;
+  @each Kkey, Knum in Kmap {
+    @if Kprev-num == null or unit(Knum) == "%" or unit(Kprev-num) == "%" {
+      // Do nothing
+    } @else if not comparable(Kprev-num, Knum) {
+      @warn "Potentially invalid value for #{Kmap-name}: This map must be in ascending order, but key '#{Kkey}' has value #{Knum} whose unit makes it incomparable to #{Kprev-num}, the value of the previous key '#{Kprev-key}' !";
+    } @else if Kprev-num >= Knum {
+      @warn "Invalid value for #{Kmap-name}: This map must be in ascending order, but key '#{Kkey}' has value #{Knum} which isn't greater than #{Kprev-num}, the value of the previous key '#{Kprev-key}' !";
+    }
+    Kprev-key: Kkey;
+    Kprev-num: Knum;
+  }
+}
+
+// Starts at zero
+// Used to ensure the min-width of the lowest breakpoint starts at 0.
+@mixin _assert-starts-at-zero(Kmap, Kmap-name: "Kgrid-breakpoints") {
+  @if length(Kmap) > 0 {
+    Kvalues: map-values(Kmap);
+    Kfirst-value: nth(Kvalues, 1);
+    @if Kfirst-value != 0 {
+      @warn "First breakpoint in #{Kmap-name} must start at 0, but starts at #{Kfirst-value}.";
+    }
+  }
+}
+
+// Colors
+@function to-rgb(Kvalue) {
+  @return red(Kvalue), green(Kvalue), blue(Kvalue);
+}
+
+// stylelint-disable scss/dollar-variable-pattern
+@function rgba-css-var(Kidentifier, Ktarget) {
+  @if Kidentifier == "body" and Ktarget == "bg" {
+    @return rgba(var(--#{Kvariable-prefix}#{Kidentifier}-bg-rgb), var(--#{Kvariable-prefix}#{Ktarget}-opacity));
+  } @if Kidentifier == "body" and Ktarget == "text" {
+    @return rgba(var(--#{Kvariable-prefix}#{Kidentifier}-color-rgb), var(--#{Kvariable-prefix}#{Ktarget}-opacity));
+  } @else {
+    @return rgba(var(--#{Kvariable-prefix}#{Kidentifier}-rgb), var(--#{Kvariable-prefix}#{Ktarget}-opacity));
+  }
+}
+
+@function map-loop(Kmap, Kfunc, Kargs...) {
+  K_map: ();
+
+  @each Kkey, Kvalue in Kmap {
+    // allow to pass the Kkey and Kvalue of the map as an function argument
+    K_args: ();
+    @each Karg in Kargs {
+      K_args: append(K_args, if(Karg == "Kkey", Kkey, if(Karg == "Kvalue", Kvalue, Karg)));
+    }
+
+    K_map: map-merge(K_map, (Kkey: call(get-function(Kfunc), K_args...)));
+  }
+
+  @return K_map;
+}
+// stylelint-enable scss/dollar-variable-pattern
+
+@function varify(Klist) {
+  Kresult: null;
+  @each Kentry in Klist {
+    Kresult: append(Kresult, var(--#{Kvariable-prefix}#{Kentry}), space);
+  }
+  @return Kresult;
+}
+
+// Internal Bootstrap function to turn maps into its negative variant.
+// It prefixes the keys with `n` and makes the value negative.
+@function negativify-map(Kmap) {
+  Kresult: ();
+  @each Kkey, Kvalue in Kmap {
+    @if Kkey != 0 {
+      Kresult: map-merge(Kresult, ("n" + Kkey: (-Kvalue)));
+    }
+  }
+  @return Kresult;
+}
+
+// Get multiple keys from a sass map
+@function map-get-multiple(Kmap, Kvalues) {
+  Kresult: ();
+  @each Kkey, Kvalue in Kmap {
+    @if (index(Kvalues, Kkey) != null) {
+      Kresult: map-merge(Kresult, (Kkey: Kvalue));
+    }
+  }
+  @return Kresult;
+}
+
+// Merge multiple maps
+@function map-merge-multiple(Kmaps...) {
+  Kmerged-maps: ();
+
+  @each Kmap in Kmaps {
+    Kmerged-maps: map-merge(Kmerged-maps, Kmap);
+  }
+  @return Kmerged-maps;
+}
+
+// Replace `Ksearch` with `Kreplace` in `Kstring`
+// Used on our SVG icon backgrounds for custom forms.
+//
+// @author Hugo Giraudel
+// @param {String} Kstring - Initial string
+// @param {String} Ksearch - Substring to replace
+// @param {String} Kreplace ('') - New value
+// @return {String} - Updated string
+@function str-replace(Kstring, Ksearch, Kreplace: "") {
+  Kindex: str-index(Kstring, Ksearch);
+
+  @if Kindex {
+    @return str-slice(Kstring, 1, Kindex - 1) + Kreplace + str-replace(str-slice(Kstring, Kindex + str-length(Ksearch)), Ksearch, Kreplace);
+  }
+
+  @return Kstring;
+}
+
+// See https://codepen.io/kevinweber/pen/dXWoRw
+//
+// Requires the use of quotes around data URIs.
+
+@function escape-svg(Kstring) {
+  @if str-index(Kstring, "data:image/svg+xml") {
+    @each Kchar, Kencoded in Kescaped-characters {
+      // Do not escape the url brackets
+      @if str-index(Kstring, "url(") == 1 {
+        Kstring: url("#{str-replace(str-slice(Kstring, 6, -3), Kchar, Kencoded)}");
+      } @else {
+        Kstring: str-replace(Kstring, Kchar, Kencoded);
+      }
+    }
+  }
+
+  @return Kstring;
+}
+
+// Color contrast
+// See https://github.com/twbs/bootstrap/pull/30168
+
+// A list of pre-calculated numbers of pow(divide((divide(Kvalue, 255) + .055), 1.055), 2.4). (from 0 to 255)
+// stylelint-disable-next-line scss/dollar-variable-default, scss/dollar-variable-pattern
+K_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003 .0033 .0037 .004 .0044 .0048 .0052 .0056 .006 .0065 .007 .0075 .008 .0086 .0091 .0097 .0103 .011 .0116 .0123 .013 .0137 .0144 .0152 .016 .0168 .0176 .0185 .0194 .0203 .0212 .0222 .0232 .0242 .0252 .0262 .0273 .0284 .0296 .0307 .0319 .0331 .0343 .0356 .0369 .0382 .0395 .0409 .0423 .0437 .0452 .0467 .0482 .0497 .0513 .0529 .0545 .0561 .0578 .0595 .0612 .063 .0648 .0666 .0685 .0704 .0723 .0742 .0762 .0782 .0802 .0823 .0844 .0865 .0887 .0908 .0931 .0953 .0976 .0999 .1022 .1046 .107 .1095 .1119 .1144 .117 .1195 .1221 .1248 .1274 .1301 .1329 .1356 .1384 .1413 .1441 .147 .15 .1529 .1559 .159 .162 .1651 .1683 .1714 .1746 .1779 .1812 .1845 .1878 .1912 .1946 .1981 .2016 .2051 .2086 .2122 .2159 .2195 .2232 .227 .2307 .2346 .2384 .2423 .2462 .2502 .2542 .2582 .2623 .2664 .2705 .2747 .2789 .2831 .2874 .2918 .2961 .3005 .305 .3095 .314 .3185 .3231 .3278 .3325 .3372 .3419 .3467 .3515 .3564 .3613 .3663 .3712 .3763 .3813 .3864 .3916 .3968 .402 .4072 .4125 .4179 .4233 .4287 .4342 .4397 .4452 .4508 .4564 .4621 .4678 .4735 .4793 .4851 .491 .4969 .5029 .5089 .5149 .521 .5271 .5333 .5395 .5457 .552 .5583 .5647 .5711 .5776 .5841 .5906 .5972 .6038 .6105 .6172 .624 .6308 .6376 .6445 .6514 .6584 .6654 .6724 .6795 .6867 .6939 .7011 .7084 .7157 .7231 .7305 .7379 .7454 .7529 .7605 .7682 .7758 .7835 .7913 .7991 .807 .8148 .8228 .8308 .8388 .8469 .855 .8632 .8714 .8796 .8879 .8963 .9047 .9131 .9216 .9301 .9387 .9473 .956 .9647 .9734 .9823 .9911 1;
+
+@function color-contrast(Kbackground, Kcolor-contrast-dark: Kcolor-contrast-dark, Kcolor-contrast-light: Kcolor-contrast-light, Kmin-contrast-ratio: Kmin-contrast-ratio) {
+  Kforegrounds: Kcolor-contrast-light, Kcolor-contrast-dark, Kwhite, Kblack;
+  Kmax-ratio: 0;
+  Kmax-ratio-color: null;
+
+  @each Kcolor in Kforegrounds {
+    Kcontrast-ratio: contrast-ratio(Kbackground, Kcolor);
+    @if Kcontrast-ratio > Kmin-contrast-ratio {
+      @return Kcolor;
+    } @else if Kcontrast-ratio > Kmax-ratio {
+      Kmax-ratio: Kcontrast-ratio;
+      Kmax-ratio-color: Kcolor;
+    }
+  }
+
+  @warn "Found no color leading to #{Kmin-contrast-ratio}:1 contrast ratio against #{Kbackground}...";
+
+  @return Kmax-ratio-color;
+}
+
+@function contrast-ratio(Kbackground, Kforeground: Kcolor-contrast-light) {
+  Kl1: luminance(Kbackground);
+  Kl2: luminance(opaque(Kbackground, Kforeground));
+
+  @return if(Kl1 > Kl2, divide(Kl1 + .05, Kl2 + .05), divide(Kl2 + .05, Kl1 + .05));
+}
+
+// Return WCAG2.0 relative luminance
+// See https://www.w3.org/WAI/GL/wiki/Relative_luminance
+// See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+@function luminance(Kcolor) {
+  Krgb: (
+    "r": red(Kcolor),
+    "g": green(Kcolor),
+    "b": blue(Kcolor)
+  );
+
+  @each Kname, Kvalue in Krgb {
+    Kvalue: if(divide(Kvalue, 255) < .03928, divide(divide(Kvalue, 255), 12.92), nth(K_luminance-list, Kvalue + 1));
+    Krgb: map-merge(Krgb, (Kname: Kvalue));
+  }
+
+  @return (map-get(Krgb, "r") * .2126) + (map-get(Krgb, "g") * .7152) + (map-get(Krgb, "b") * .0722);
+}
+
+// Return opaque color
+// opaque(#fff, rgba(0, 0, 0, .5)) => #808080
+@function opaque(Kbackground, Kforeground) {
+  @return mix(rgba(Kforeground, 1), Kbackground, opacity(Kforeground) * 100);
+}
+
+// scss-docs-start color-functions
+// Tint a color: mix a color with white
+@function tint-color(Kcolor, Kweight) {
+  @return mix(white, Kcolor, Kweight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color(Kcolor, Kweight) {
+  @return mix(black, Kcolor, Kweight);
+}
+
+// Shade the color if the weight is positive, else tint it
+@function shift-color(Kcolor, Kweight) {
+  @return if(Kweight > 0, shade-color(Kcolor, Kweight), tint-color(Kcolor, -Kweight));
+}
+// scss-docs-end color-functions
+
+// Return valid calc
+@function add(Kvalue1, Kvalue2, Kreturn-calc: true) {
+  @if Kvalue1 == null {
+    @return Kvalue2;
+  }
+
+  @if Kvalue2 == null {
+    @return Kvalue1;
+  }
+
+  @if type-of(Kvalue1) == number and type-of(Kvalue2) == number and comparable(Kvalue1, Kvalue2) {
+    @return Kvalue1 + Kvalue2;
+  }
+
+  @return if(Kreturn-calc == true, calc(#{Kvalue1} + #{Kvalue2}), Kvalue1 + unquote(" + ") + Kvalue2);
+}
+
+@function subtract(Kvalue1, Kvalue2, Kreturn-calc: true) {
+  @if Kvalue1 == null and Kvalue2 == null {
+    @return null;
+  }
+
+  @if Kvalue1 == null {
+    @return -Kvalue2;
+  }
+
+  @if Kvalue2 == null {
+    @return Kvalue1;
+  }
+
+  @if type-of(Kvalue1) == number and type-of(Kvalue2) == number and comparable(Kvalue1, Kvalue2) {
+    @return Kvalue1 - Kvalue2;
+  }
+
+  @if type-of(Kvalue2) != number {
+    Kvalue2: unquote("(") + Kvalue2 + unquote(")");
+  }
+
+  @return if(Kreturn-calc == true, calc(#{Kvalue1} - #{Kvalue2}), Kvalue1 + unquote(" - ") + Kvalue2);
+}
+
+@function divide(Kdividend, Kdivisor, Kprecision: 10) {
+  Ksign: if(Kdividend > 0 and Kdivisor > 0 or Kdividend < 0 and Kdivisor < 0, 1, -1);
+  Kdividend: abs(Kdividend);
+  Kdivisor: abs(Kdivisor);
+  @if Kdividend == 0 {
+    @return 0;
+  }
+  @if Kdivisor == 0 {
+    @error "Cannot divide by 0";
+  }
+  Kremainder: Kdividend;
+  Kresult: 0;
+  Kfactor: 10;
+  @while (Kremainder > 0 and Kprecision >= 0) {
+    Kquotient: 0;
+    @while (Kremainder >= Kdivisor) {
+      Kremainder: Kremainder - Kdivisor;
+      Kquotient: Kquotient + 1;
+    }
+    Kresult: Kresult * 10 + Kquotient;
+    Kfactor: Kfactor * .1;
+    Kremainder: Kremainder * 10;
+    Kprecision: Kprecision - 1;
+    @if (Kprecision < 0 and Kremainder >= Kdivisor * 5) {
+      Kresult: Kresult + 1;
+    }
+  }
+  Kresult: Kresult * Kfactor * Ksign;
+  Kdividend-unit: unit(Kdividend);
+  Kdivisor-unit: unit(Kdivisor);
+  Kunit-map: (
+    "px": 1px,
+    "rem": 1rem,
+    "em": 1em,
+    "%": 1%
+  );
+  @if (Kdividend-unit != Kdivisor-unit and map-has-key(Kunit-map, Kdividend-unit)) {
+    Kresult: Kresult * map-get(Kunit-map, Kdividend-unit);
+  }
+  @return Kresult;
+}

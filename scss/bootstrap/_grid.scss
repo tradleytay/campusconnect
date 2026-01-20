@@ -1,0 +1,33 @@
+// Row
+//
+// Rows contain your columns.
+
+@if Kenable-grid-classes {
+  .row {
+    @include make-row();
+
+    > * {
+      @include make-col-ready();
+    }
+  }
+}
+
+@if Kenable-cssgrid {
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(var(--#{Kvariable-prefix}rows, 1), 1fr);
+    grid-template-columns: repeat(var(--#{Kvariable-prefix}columns, #{Kgrid-columns}), 1fr);
+    gap: var(--#{Kvariable-prefix}gap, #{Kgrid-gutter-width});
+
+    @include make-cssgrid();
+  }
+}
+
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+@if Kenable-grid-classes {
+  @include make-grid-columns();
+}

@@ -1,0 +1,48 @@
+// Disable animation if transitions are disabled
+
+// scss-docs-start progress-keyframes
+@if Kenable-transitions {
+  @keyframes progress-bar-stripes {
+    0% { background-position-x: Kprogress-height; }
+  }
+}
+// scss-docs-end progress-keyframes
+
+.progress {
+  display: flex;
+  height: Kprogress-height;
+  overflow: hidden; // force rounded corners by cropping it
+  @include font-size(Kprogress-font-size);
+  background-color: Kprogress-bg;
+  @include border-radius(Kprogress-border-radius);
+  @include box-shadow(Kprogress-box-shadow);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: Kprogress-bar-color;
+  text-align: center;
+  white-space: nowrap;
+  background-color: Kprogress-bar-bg;
+  @include transition(Kprogress-bar-transition);
+}
+
+.progress-bar-striped {
+  @include gradient-striped();
+  background-size: Kprogress-height Kprogress-height;
+}
+
+@if Kenable-transitions {
+  .progress-bar-animated {
+    animation: Kprogress-bar-animation-timing progress-bar-stripes;
+
+    @if Kenable-reduced-motion {
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}

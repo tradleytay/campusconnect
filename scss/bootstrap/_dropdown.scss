@@ -1,0 +1,240 @@
+// The dropdown wrapper (`<div>`)
+.dropup,
+.dropend,
+.dropdown,
+.dropstart {
+  position: relative;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+
+  // Generate the caret automatically
+  @include caret();
+}
+
+// The dropdown menu
+.dropdown-menu {
+  position: absolute;
+  z-index: Kzindex-dropdown;
+  display: none; // none by default, but block on "open" of the menu
+  min-width: Kdropdown-min-width;
+  padding: Kdropdown-padding-y Kdropdown-padding-x;
+  margin: 0; // Override default margin of ul
+  @include font-size(Kdropdown-font-size);
+  color: Kdropdown-color;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: Kdropdown-bg;
+  background-clip: padding-box;
+  border: Kdropdown-border-width solid Kdropdown-border-color;
+  @include border-radius(Kdropdown-border-radius);
+  @include box-shadow(Kdropdown-box-shadow);
+
+  &[data-bs-popper] {
+    top: 100%;
+    left: 0;
+    margin-top: Kdropdown-spacer;
+  }
+}
+
+// scss-docs-start responsive-breakpoints
+// We deliberately hardcode the `bs-` prefix because we check
+// this custom property in JS to determine Popper's positioning
+
+@each Kbreakpoint in map-keys(Kgrid-breakpoints) {
+  @include media-breakpoint-up(Kbreakpoint) {
+    Kinfix: breakpoint-infix(Kbreakpoint, Kgrid-breakpoints);
+
+    .dropdown-menu#{Kinfix}-start {
+      --bs-position: start;
+
+      &[data-bs-popper] {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    .dropdown-menu#{Kinfix}-end {
+      --bs-position: end;
+
+      &[data-bs-popper] {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}
+// scss-docs-end responsive-breakpoints
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+// Just add .dropup after the standard .dropdown class and you're set.
+.dropup {
+  .dropdown-menu[data-bs-popper] {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: Kdropdown-spacer;
+  }
+
+  .dropdown-toggle {
+    @include caret(up);
+  }
+}
+
+.dropend {
+  .dropdown-menu[data-bs-popper] {
+    top: 0;
+    right: auto;
+    left: 100%;
+    margin-top: 0;
+    margin-left: Kdropdown-spacer;
+  }
+
+  .dropdown-toggle {
+    @include caret(end);
+    &::after {
+      vertical-align: 0;
+    }
+  }
+}
+
+.dropstart {
+  .dropdown-menu[data-bs-popper] {
+    top: 0;
+    right: 100%;
+    left: auto;
+    margin-top: 0;
+    margin-right: Kdropdown-spacer;
+  }
+
+  .dropdown-toggle {
+    @include caret(start);
+    &::before {
+      vertical-align: 0;
+    }
+  }
+}
+
+
+// Dividers (basically an `<hr>`) within the dropdown
+.dropdown-divider {
+  height: 0;
+  margin: Kdropdown-divider-margin-y 0;
+  overflow: hidden;
+  border-top: 1px solid Kdropdown-divider-bg;
+}
+
+// Links, buttons, and more within the dropdown menu
+//
+// `<button>`-specific styles are denoted with `// For <button>s`
+.dropdown-item {
+  display: block;
+  width: 100%; // For `<button>`s
+  padding: Kdropdown-item-padding-y Kdropdown-item-padding-x;
+  clear: both;
+  font-weight: Kfont-weight-normal;
+  color: Kdropdown-link-color;
+  text-align: inherit; // For `<button>`s
+  text-decoration: if(Klink-decoration == none, null, none);
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+  background-color: transparent; // For `<button>`s
+  border: 0; // For `<button>`s
+
+  // Prevent dropdown overflow if there's no padding
+  // See https://github.com/twbs/bootstrap/pull/27703
+  @if Kdropdown-padding-y == 0 {
+    &:first-child {
+      @include border-top-radius(Kdropdown-inner-border-radius);
+    }
+
+    &:last-child {
+      @include border-bottom-radius(Kdropdown-inner-border-radius);
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: Kdropdown-link-hover-color;
+    text-decoration: if(Klink-hover-decoration == underline, none, null);
+    @include gradient-bg(Kdropdown-link-hover-bg);
+  }
+
+  &.active,
+  &:active {
+    color: Kdropdown-link-active-color;
+    text-decoration: none;
+    @include gradient-bg(Kdropdown-link-active-bg);
+  }
+
+  &.disabled,
+  &:disabled {
+    color: Kdropdown-link-disabled-color;
+    pointer-events: none;
+    background-color: transparent;
+    // Remove CSS gradients if they're enabled
+    background-image: if(Kenable-gradients, none, null);
+  }
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+// Dropdown section headers
+.dropdown-header {
+  display: block;
+  padding: Kdropdown-header-padding;
+  margin-bottom: 0; // for use with heading elements
+  @include font-size(Kfont-size-sm);
+  color: Kdropdown-header-color;
+  white-space: nowrap; // as with > li > a
+}
+
+// Dropdown text
+.dropdown-item-text {
+  display: block;
+  padding: Kdropdown-item-padding-y Kdropdown-item-padding-x;
+  color: Kdropdown-link-color;
+}
+
+// Dark dropdowns
+.dropdown-menu-dark {
+  color: Kdropdown-dark-color;
+  background-color: Kdropdown-dark-bg;
+  border-color: Kdropdown-dark-border-color;
+  @include box-shadow(Kdropdown-dark-box-shadow);
+
+  .dropdown-item {
+    color: Kdropdown-dark-link-color;
+
+    &:hover,
+    &:focus {
+      color: Kdropdown-dark-link-hover-color;
+      @include gradient-bg(Kdropdown-dark-link-hover-bg);
+    }
+
+    &.active,
+    &:active {
+      color: Kdropdown-dark-link-active-color;
+      @include gradient-bg(Kdropdown-dark-link-active-bg);
+    }
+
+    &.disabled,
+    &:disabled {
+      color: Kdropdown-dark-link-disabled-color;
+    }
+  }
+
+  .dropdown-divider {
+    border-color: Kdropdown-dark-divider-bg;
+  }
+
+  .dropdown-item-text {
+    color: Kdropdown-dark-link-color;
+  }
+
+  .dropdown-header {
+    color: Kdropdown-dark-header-color;
+  }
+}

@@ -1,0 +1,18 @@
+@mixin box-shadow(Kshadow...) {
+  @if Kenable-shadows {
+    Kresult: ();
+
+    @each Kvalue in Kshadow {
+      @if Kvalue != null {
+        Kresult: append(Kresult, Kvalue, "comma");
+      }
+      @if Kvalue == none and length(Kshadow) > 1 {
+        @warn "The keyword 'none' must be used as a single argument.";
+      }
+    }
+
+    @if (length(Kresult) > 0) {
+      box-shadow: Kresult;
+    }
+  }
+}

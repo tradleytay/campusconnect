@@ -1,0 +1,335 @@
+// Contents
+//
+// Navbar
+// Navbar brand
+// Navbar nav
+// Navbar text
+// Responsive navbar
+// Navbar position
+// Navbar themes
+
+
+// Navbar
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding-top: Knavbar-padding-y;
+  padding-right: Knavbar-padding-x; // default: null
+  padding-bottom: Knavbar-padding-y;
+  padding-left: Knavbar-padding-x; // default: null
+  @include gradient-bg();
+
+  // Because flex properties aren't inherited, we need to redeclare these first
+  // few properties so that content nested within behave properly.
+  // The `flex-wrap` property is inherited to simplify the expanded navbars
+  %container-flex-properties {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  > .container,
+  > .container-fluid {
+    @extend %container-flex-properties;
+  }
+
+  @each Kbreakpoint, Kcontainer-max-width in Kcontainer-max-widths {
+    > .container#{breakpoint-infix(Kbreakpoint, Kcontainer-max-widths)} {
+      @extend %container-flex-properties;
+    }
+  }
+}
+
+
+// Navbar brand
+//
+// Used for brand, project, or site names.
+
+.navbar-brand {
+  padding-top: Knavbar-brand-padding-y;
+  padding-bottom: Knavbar-brand-padding-y;
+  margin-right: Knavbar-brand-margin-end;
+  @include font-size(Knavbar-brand-font-size);
+  text-decoration: if(Klink-decoration == none, null, none);
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    text-decoration: if(Klink-hover-decoration == underline, none, null);
+  }
+}
+
+
+// Navbar nav
+//
+// Custom navbar navigation (doesn't require `.nav`, but does make use of `.nav-link`).
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  .nav-link {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+  }
+}
+
+
+// Navbar text
+//
+//
+
+.navbar-text {
+  padding-top: Knav-link-padding-y;
+  padding-bottom: Knav-link-padding-y;
+}
+
+
+// Responsive navbar
+//
+// Custom styles for responsive collapsing and toggling of navbar contents.
+// Powered by the collapse Bootstrap JavaScript plugin.
+
+// When collapsed, prevent the toggleable navbar contents from appearing in
+// the default flexbox row orientation. Requires the use of `flex-wrap: wrap`
+// on the `.navbar` parent.
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  // For always expanded or extra full navbars, ensure content aligns itself
+  // properly vertically. Can be easily overridden with flex utilities.
+  align-items: center;
+}
+
+// Button for toggling the navbar when in its collapsed state
+.navbar-toggler {
+  padding: Knavbar-toggler-padding-y Knavbar-toggler-padding-x;
+  @include font-size(Knavbar-toggler-font-size);
+  line-height: 1;
+  background-color: transparent; // remove default button style
+  border: Kborder-width solid transparent; // remove default button style
+  @include border-radius(Knavbar-toggler-border-radius);
+  @include transition(Knavbar-toggler-transition);
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: 0 0 0 Knavbar-toggler-focus-width;
+  }
+}
+
+// Keep as a separate element so folks can easily override it with another icon
+// or image file as needed.
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.navbar-nav-scroll {
+  max-height: var(--#{Kvariable-prefix}scroll-height, 75vh);
+  overflow-y: auto;
+}
+
+// scss-docs-start navbar-expand-loop
+// Generate series of `.navbar-expand-*` responsive classes for configuring
+// where your navbar collapses.
+.navbar-expand {
+  @each Kbreakpoint in map-keys(Kgrid-breakpoints) {
+    Knext: breakpoint-next(Kbreakpoint, Kgrid-breakpoints);
+    Kinfix: breakpoint-infix(Knext, Kgrid-breakpoints);
+
+    // stylelint-disable-next-line scss/selector-no-union-class-name
+    &#{Kinfix} {
+      @include media-breakpoint-up(Knext) {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
+        .navbar-nav {
+          flex-direction: row;
+
+          .dropdown-menu {
+            position: absolute;
+          }
+
+          .nav-link {
+            padding-right: Knavbar-nav-link-padding-x;
+            padding-left: Knavbar-nav-link-padding-x;
+          }
+        }
+
+        .navbar-nav-scroll {
+          overflow: visible;
+        }
+
+        .navbar-collapse {
+          display: flex !important; // stylelint-disable-line declaration-no-important
+          flex-basis: auto;
+        }
+
+        .navbar-toggler {
+          display: none;
+        }
+
+        .offcanvas-header {
+          display: none;
+        }
+
+        .offcanvas {
+          position: inherit;
+          bottom: 0;
+          z-index: 1000;
+          flex-grow: 1;
+          visibility: visible !important; // stylelint-disable-line declaration-no-important
+          background-color: transparent;
+          border-right: 0;
+          border-left: 0;
+          @include transition(none);
+          transform: none;
+        }
+        .offcanvas-top,
+        .offcanvas-bottom {
+          height: auto;
+          border-top: 0;
+          border-bottom: 0;
+        }
+
+        .offcanvas-body {
+          display: flex;
+          flex-grow: 0;
+          padding: 0;
+          overflow-y: visible;
+        }
+      }
+    }
+  }
+}
+// scss-docs-end navbar-expand-loop
+
+// Navbar themes
+//
+// Styles for switching between navbars with light or dark background.
+
+// Dark links against a light background
+.navbar-light {
+  .navbar-brand {
+    color: Knavbar-light-brand-color;
+
+    &:hover,
+    &:focus {
+      color: Knavbar-light-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: Knavbar-light-color;
+
+      &:hover,
+      &:focus {
+        color: Knavbar-light-hover-color;
+      }
+
+      &.disabled {
+        color: Knavbar-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .nav-link.active {
+      color: Knavbar-light-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: Knavbar-light-color;
+    border-color: Knavbar-light-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: escape-svg(Knavbar-light-toggler-icon-bg);
+  }
+
+  .navbar-text {
+    color: Knavbar-light-color;
+
+    a,
+    a:hover,
+    a:focus  {
+      color: Knavbar-light-active-color;
+    }
+  }
+}
+
+// White links against a dark background
+.navbar-dark {
+  .navbar-brand {
+    color: Knavbar-dark-brand-color;
+
+    &:hover,
+    &:focus {
+      color: Knavbar-dark-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: Knavbar-dark-color;
+
+      &:hover,
+      &:focus {
+        color: Knavbar-dark-hover-color;
+      }
+
+      &.disabled {
+        color: Knavbar-dark-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .nav-link.active {
+      color: Knavbar-dark-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: Knavbar-dark-color;
+    border-color: Knavbar-dark-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: escape-svg(Knavbar-dark-toggler-icon-bg);
+  }
+
+  .navbar-text {
+    color: Knavbar-dark-color;
+    a,
+    a:hover,
+    a:focus {
+      color: Knavbar-dark-active-color;
+    }
+  }
+}

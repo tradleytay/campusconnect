@@ -1,0 +1,47 @@
+// Gradients
+
+// scss-docs-start gradient-bg-mixin
+@mixin gradient-bg(Kcolor: null) {
+  background-color: Kcolor;
+
+  @if Kenable-gradients {
+    background-image: var(--#{Kvariable-prefix}gradient);
+  }
+}
+// scss-docs-end gradient-bg-mixin
+
+// scss-docs-start gradient-mixins
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-x(Kstart-color: Kgray-700, Kend-color: Kgray-800, Kstart-percent: 0%, Kend-percent: 100%) {
+  background-image: linear-gradient(to right, Kstart-color Kstart-percent, Kend-color Kend-percent);
+}
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-y(Kstart-color: Kgray-700, Kend-color: Kgray-800, Kstart-percent: null, Kend-percent: null) {
+  background-image: linear-gradient(to bottom, Kstart-color Kstart-percent, Kend-color Kend-percent);
+}
+
+@mixin gradient-directional(Kstart-color: Kgray-700, Kend-color: Kgray-800, Kdeg: 45deg) {
+  background-image: linear-gradient(Kdeg, Kstart-color, Kend-color);
+}
+
+@mixin gradient-x-three-colors(Kstart-color: Kblue, Kmid-color: Kpurple, Kcolor-stop: 50%, Kend-color: Kred) {
+  background-image: linear-gradient(to right, Kstart-color, Kmid-color Kcolor-stop, Kend-color);
+}
+
+@mixin gradient-y-three-colors(Kstart-color: Kblue, Kmid-color: Kpurple, Kcolor-stop: 50%, Kend-color: Kred) {
+  background-image: linear-gradient(Kstart-color, Kmid-color Kcolor-stop, Kend-color);
+}
+
+@mixin gradient-radial(Kinner-color: Kgray-700, Kouter-color: Kgray-800) {
+  background-image: radial-gradient(circle, Kinner-color, Kouter-color);
+}
+
+@mixin gradient-striped(Kcolor: rgba(Kwhite, .15), Kangle: 45deg) {
+  background-image: linear-gradient(Kangle, Kcolor 25%, transparent 25%, transparent 50%, Kcolor 50%, Kcolor 75%, transparent 75%, transparent);
+}
+// scss-docs-end gradient-mixins

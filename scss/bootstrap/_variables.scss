@@ -1,0 +1,1641 @@
+// Variables
+//
+// Variables should follow the `Kcomponent-state-property-size` formula for
+// consistent naming. Ex: Knav-link-disabled-color and Kmodal-content-box-shadow-xs.
+
+// Color system
+
+// scss-docs-start gray-color-variables
+Kwhite:    #fff !default;
+Kgray-100: #f8f9fa !default;
+Kgray-200: #e9ecef !default;
+Kgray-300: #dee2e6 !default;
+Kgray-400: #ced4da !default;
+Kgray-500: #adb5bd !default;
+Kgray-600: #6c757d !default;
+Kgray-700: #495057 !default;
+Kgray-800: #343a40 !default;
+Kgray-900: #212529 !default;
+Kblack:    #000 !default;
+// scss-docs-end gray-color-variables
+
+// fusv-disable
+// scss-docs-start gray-colors-map
+Kgrays: (
+  "100": Kgray-100,
+  "200": Kgray-200,
+  "300": Kgray-300,
+  "400": Kgray-400,
+  "500": Kgray-500,
+  "600": Kgray-600,
+  "700": Kgray-700,
+  "800": Kgray-800,
+  "900": Kgray-900
+) !default;
+// scss-docs-end gray-colors-map
+// fusv-enable
+
+// scss-docs-start color-variables
+Kblue:    #0d6efd !default;
+Kindigo:  #6610f2 !default;
+Kpurple:  #6f42c1 !default;
+Kpink:    #d63384 !default;
+Kred:     #dc3545 !default;
+Korange:  #fd7e14 !default;
+Kyellow:  #ffc107 !default;
+Kgreen:   #198754 !default;
+Kteal:    #20c997 !default;
+Kcyan:    #0dcaf0 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start colors-map
+Kcolors: (
+  "blue":       Kblue,
+  "indigo":     Kindigo,
+  "purple":     Kpurple,
+  "pink":       Kpink,
+  "red":        Kred,
+  "orange":     Korange,
+  "yellow":     Kyellow,
+  "green":      Kgreen,
+  "teal":       Kteal,
+  "cyan":       Kcyan,
+  "white":      Kwhite,
+  "gray":       Kgray-600,
+  "gray-dark":  Kgray-800
+) !default;
+// scss-docs-end colors-map
+
+// scss-docs-start theme-color-variables
+Kprimary:       Kblue !default;
+Ksecondary:     Kgray-600 !default;
+Ksuccess:       Kgreen !default;
+Kinfo:          Kcyan !default;
+Kwarning:       Kyellow !default;
+Kdanger:        Kred !default;
+Klight:         Kgray-100 !default;
+Kdark:          Kgray-900 !default;
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+Ktheme-colors: (
+  "primary":    Kprimary,
+  "secondary":  Ksecondary,
+  "success":    Ksuccess,
+  "info":       Kinfo,
+  "warning":    Kwarning,
+  "danger":     Kdanger,
+  "light":      Klight,
+  "dark":       Kdark
+) !default;
+// scss-docs-end theme-colors-map
+
+// scss-docs-start theme-colors-rgb
+Ktheme-colors-rgb: map-loop(Ktheme-colors, to-rgb, "Kvalue") !default;
+// scss-docs-end theme-colors-rgb
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+Kmin-contrast-ratio:   4.5 !default;
+
+// Customize the light and dark text colors for use in our color contrast function.
+Kcolor-contrast-dark:      Kblack !default;
+Kcolor-contrast-light:     Kwhite !default;
+
+// fusv-disable
+Kblue-100: tint-color(Kblue, 80%) !default;
+Kblue-200: tint-color(Kblue, 60%) !default;
+Kblue-300: tint-color(Kblue, 40%) !default;
+Kblue-400: tint-color(Kblue, 20%) !default;
+Kblue-500: Kblue !default;
+Kblue-600: shade-color(Kblue, 20%) !default;
+Kblue-700: shade-color(Kblue, 40%) !default;
+Kblue-800: shade-color(Kblue, 60%) !default;
+Kblue-900: shade-color(Kblue, 80%) !default;
+
+Kindigo-100: tint-color(Kindigo, 80%) !default;
+Kindigo-200: tint-color(Kindigo, 60%) !default;
+Kindigo-300: tint-color(Kindigo, 40%) !default;
+Kindigo-400: tint-color(Kindigo, 20%) !default;
+Kindigo-500: Kindigo !default;
+Kindigo-600: shade-color(Kindigo, 20%) !default;
+Kindigo-700: shade-color(Kindigo, 40%) !default;
+Kindigo-800: shade-color(Kindigo, 60%) !default;
+Kindigo-900: shade-color(Kindigo, 80%) !default;
+
+Kpurple-100: tint-color(Kpurple, 80%) !default;
+Kpurple-200: tint-color(Kpurple, 60%) !default;
+Kpurple-300: tint-color(Kpurple, 40%) !default;
+Kpurple-400: tint-color(Kpurple, 20%) !default;
+Kpurple-500: Kpurple !default;
+Kpurple-600: shade-color(Kpurple, 20%) !default;
+Kpurple-700: shade-color(Kpurple, 40%) !default;
+Kpurple-800: shade-color(Kpurple, 60%) !default;
+Kpurple-900: shade-color(Kpurple, 80%) !default;
+
+Kpink-100: tint-color(Kpink, 80%) !default;
+Kpink-200: tint-color(Kpink, 60%) !default;
+Kpink-300: tint-color(Kpink, 40%) !default;
+Kpink-400: tint-color(Kpink, 20%) !default;
+Kpink-500: Kpink !default;
+Kpink-600: shade-color(Kpink, 20%) !default;
+Kpink-700: shade-color(Kpink, 40%) !default;
+Kpink-800: shade-color(Kpink, 60%) !default;
+Kpink-900: shade-color(Kpink, 80%) !default;
+
+Kred-100: tint-color(Kred, 80%) !default;
+Kred-200: tint-color(Kred, 60%) !default;
+Kred-300: tint-color(Kred, 40%) !default;
+Kred-400: tint-color(Kred, 20%) !default;
+Kred-500: Kred !default;
+Kred-600: shade-color(Kred, 20%) !default;
+Kred-700: shade-color(Kred, 40%) !default;
+Kred-800: shade-color(Kred, 60%) !default;
+Kred-900: shade-color(Kred, 80%) !default;
+
+Korange-100: tint-color(Korange, 80%) !default;
+Korange-200: tint-color(Korange, 60%) !default;
+Korange-300: tint-color(Korange, 40%) !default;
+Korange-400: tint-color(Korange, 20%) !default;
+Korange-500: Korange !default;
+Korange-600: shade-color(Korange, 20%) !default;
+Korange-700: shade-color(Korange, 40%) !default;
+Korange-800: shade-color(Korange, 60%) !default;
+Korange-900: shade-color(Korange, 80%) !default;
+
+Kyellow-100: tint-color(Kyellow, 80%) !default;
+Kyellow-200: tint-color(Kyellow, 60%) !default;
+Kyellow-300: tint-color(Kyellow, 40%) !default;
+Kyellow-400: tint-color(Kyellow, 20%) !default;
+Kyellow-500: Kyellow !default;
+Kyellow-600: shade-color(Kyellow, 20%) !default;
+Kyellow-700: shade-color(Kyellow, 40%) !default;
+Kyellow-800: shade-color(Kyellow, 60%) !default;
+Kyellow-900: shade-color(Kyellow, 80%) !default;
+
+Kgreen-100: tint-color(Kgreen, 80%) !default;
+Kgreen-200: tint-color(Kgreen, 60%) !default;
+Kgreen-300: tint-color(Kgreen, 40%) !default;
+Kgreen-400: tint-color(Kgreen, 20%) !default;
+Kgreen-500: Kgreen !default;
+Kgreen-600: shade-color(Kgreen, 20%) !default;
+Kgreen-700: shade-color(Kgreen, 40%) !default;
+Kgreen-800: shade-color(Kgreen, 60%) !default;
+Kgreen-900: shade-color(Kgreen, 80%) !default;
+
+Kteal-100: tint-color(Kteal, 80%) !default;
+Kteal-200: tint-color(Kteal, 60%) !default;
+Kteal-300: tint-color(Kteal, 40%) !default;
+Kteal-400: tint-color(Kteal, 20%) !default;
+Kteal-500: Kteal !default;
+Kteal-600: shade-color(Kteal, 20%) !default;
+Kteal-700: shade-color(Kteal, 40%) !default;
+Kteal-800: shade-color(Kteal, 60%) !default;
+Kteal-900: shade-color(Kteal, 80%) !default;
+
+Kcyan-100: tint-color(Kcyan, 80%) !default;
+Kcyan-200: tint-color(Kcyan, 60%) !default;
+Kcyan-300: tint-color(Kcyan, 40%) !default;
+Kcyan-400: tint-color(Kcyan, 20%) !default;
+Kcyan-500: Kcyan !default;
+Kcyan-600: shade-color(Kcyan, 20%) !default;
+Kcyan-700: shade-color(Kcyan, 40%) !default;
+Kcyan-800: shade-color(Kcyan, 60%) !default;
+Kcyan-900: shade-color(Kcyan, 80%) !default;
+
+Kblues: (
+  "blue-100": Kblue-100,
+  "blue-200": Kblue-200,
+  "blue-300": Kblue-300,
+  "blue-400": Kblue-400,
+  "blue-500": Kblue-500,
+  "blue-600": Kblue-600,
+  "blue-700": Kblue-700,
+  "blue-800": Kblue-800,
+  "blue-900": Kblue-900
+) !default;
+
+Kindigos: (
+  "indigo-100": Kindigo-100,
+  "indigo-200": Kindigo-200,
+  "indigo-300": Kindigo-300,
+  "indigo-400": Kindigo-400,
+  "indigo-500": Kindigo-500,
+  "indigo-600": Kindigo-600,
+  "indigo-700": Kindigo-700,
+  "indigo-800": Kindigo-800,
+  "indigo-900": Kindigo-900
+) !default;
+
+Kpurples: (
+  "purple-100": Kpurple-200,
+  "purple-200": Kpurple-100,
+  "purple-300": Kpurple-300,
+  "purple-400": Kpurple-400,
+  "purple-500": Kpurple-500,
+  "purple-600": Kpurple-600,
+  "purple-700": Kpurple-700,
+  "purple-800": Kpurple-800,
+  "purple-900": Kpurple-900
+) !default;
+
+Kpinks: (
+  "pink-100": Kpink-100,
+  "pink-200": Kpink-200,
+  "pink-300": Kpink-300,
+  "pink-400": Kpink-400,
+  "pink-500": Kpink-500,
+  "pink-600": Kpink-600,
+  "pink-700": Kpink-700,
+  "pink-800": Kpink-800,
+  "pink-900": Kpink-900
+) !default;
+
+Kreds: (
+  "red-100": Kred-100,
+  "red-200": Kred-200,
+  "red-300": Kred-300,
+  "red-400": Kred-400,
+  "red-500": Kred-500,
+  "red-600": Kred-600,
+  "red-700": Kred-700,
+  "red-800": Kred-800,
+  "red-900": Kred-900
+) !default;
+
+Koranges: (
+  "orange-100": Korange-100,
+  "orange-200": Korange-200,
+  "orange-300": Korange-300,
+  "orange-400": Korange-400,
+  "orange-500": Korange-500,
+  "orange-600": Korange-600,
+  "orange-700": Korange-700,
+  "orange-800": Korange-800,
+  "orange-900": Korange-900
+) !default;
+
+Kyellows: (
+  "yellow-100": Kyellow-100,
+  "yellow-200": Kyellow-200,
+  "yellow-300": Kyellow-300,
+  "yellow-400": Kyellow-400,
+  "yellow-500": Kyellow-500,
+  "yellow-600": Kyellow-600,
+  "yellow-700": Kyellow-700,
+  "yellow-800": Kyellow-800,
+  "yellow-900": Kyellow-900
+) !default;
+
+Kgreens: (
+  "green-100": Kgreen-100,
+  "green-200": Kgreen-200,
+  "green-300": Kgreen-300,
+  "green-400": Kgreen-400,
+  "green-500": Kgreen-500,
+  "green-600": Kgreen-600,
+  "green-700": Kgreen-700,
+  "green-800": Kgreen-800,
+  "green-900": Kgreen-900
+) !default;
+
+Kteals: (
+  "teal-100": Kteal-100,
+  "teal-200": Kteal-200,
+  "teal-300": Kteal-300,
+  "teal-400": Kteal-400,
+  "teal-500": Kteal-500,
+  "teal-600": Kteal-600,
+  "teal-700": Kteal-700,
+  "teal-800": Kteal-800,
+  "teal-900": Kteal-900
+) !default;
+
+Kcyans: (
+  "cyan-100": Kcyan-100,
+  "cyan-200": Kcyan-200,
+  "cyan-300": Kcyan-300,
+  "cyan-400": Kcyan-400,
+  "cyan-500": Kcyan-500,
+  "cyan-600": Kcyan-600,
+  "cyan-700": Kcyan-700,
+  "cyan-800": Kcyan-800,
+  "cyan-900": Kcyan-900
+) !default;
+// fusv-enable
+
+// Characters which are escaped by the escape-svg function
+Kescaped-characters: (
+  ("<", "%3c"),
+  (">", "%3e"),
+  ("#", "%23"),
+  ("(", "%28"),
+  (")", "%29"),
+) !default;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+Kenable-caret:                true !default;
+Kenable-rounded:              true !default;
+Kenable-shadows:              false !default;
+Kenable-gradients:            false !default;
+Kenable-transitions:          true !default;
+Kenable-reduced-motion:       true !default;
+Kenable-smooth-scroll:        true !default;
+Kenable-grid-classes:         true !default;
+Kenable-cssgrid:              false !default;
+Kenable-button-pointers:      true !default;
+Kenable-rfs:                  true !default;
+Kenable-validation-icons:     true !default;
+Kenable-negative-margins:     false !default;
+Kenable-deprecation-messages: true !default;
+Kenable-important-utilities:  true !default;
+
+// Prefix for :root CSS variables
+
+Kvariable-prefix:             bs- !default;
+
+// Gradient
+//
+// The gradient which is added to components if `Kenable-gradients` is `true`
+// This gradient is also added to elements with `.bg-gradient`
+// scss-docs-start variable-gradient
+Kgradient: linear-gradient(180deg, rgba(Kwhite, .15), rgba(Kwhite, 0)) !default;
+// scss-docs-end variable-gradient
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the Kspacers map, should you need more variation.
+
+// scss-docs-start spacer-variables-maps
+Kspacer: 1rem !default;
+Kspacers: (
+  0: 0,
+  1: Kspacer * .25,
+  2: Kspacer * .5,
+  3: Kspacer,
+  4: Kspacer * 1.5,
+  5: Kspacer * 3,
+) !default;
+
+Knegative-spacers: if(Kenable-negative-margins, negativify-map(Kspacers), null) !default;
+// scss-docs-end spacer-variables-maps
+
+// Position
+//
+// Define the edge positioning anchors of the position utilities.
+
+// scss-docs-start position-map
+Kposition-values: (
+  0: 0,
+  50: 50%,
+  100: 100%
+) !default;
+// scss-docs-end position-map
+
+// Body
+//
+// Settings for the `<body>` element.
+
+Kbody-bg:                   Kwhite !default;
+Kbody-color:                Kgray-900 !default;
+Kbody-text-align:           null !default;
+
+// Utilities maps
+//
+// Extends the default `Ktheme-colors` maps to help create our utilities.
+
+// Come v6, we'll de-dupe these variables. Until then, for backward compatibility, we keep them to reassign.
+// scss-docs-start utilities-colors
+Kutilities-colors: Ktheme-colors-rgb !default;
+// scss-docs-end utilities-colors
+
+// scss-docs-start utilities-text-colors
+Kutilities-text: map-merge(
+  Kutilities-colors,
+  (
+    "black": to-rgb(Kblack),
+    "white": to-rgb(Kwhite),
+    "body": to-rgb(Kbody-color)
+  )
+) !default;
+Kutilities-text-colors: map-loop(Kutilities-text, rgba-css-var, "Kkey", "text") !default;
+// scss-docs-end utilities-text-colors
+
+// scss-docs-start utilities-bg-colors
+Kutilities-bg: map-merge(
+  Kutilities-colors,
+  (
+    "black": to-rgb(Kblack),
+    "white": to-rgb(Kwhite),
+    "body": to-rgb(Kbody-bg)
+  )
+) !default;
+Kutilities-bg-colors: map-loop(Kutilities-bg, rgba-css-var, "Kkey", "bg") !default;
+// scss-docs-end utilities-bg-colors
+
+// Links
+//
+// Style anchor elements.
+
+Klink-color:                              Kprimary !default;
+Klink-decoration:                         underline !default;
+Klink-shade-percentage:                   20% !default;
+Klink-hover-color:                        shift-color(Klink-color, Klink-shade-percentage) !default;
+Klink-hover-decoration:                   null !default;
+
+Kstretched-link-pseudo-element:           after !default;
+Kstretched-link-z-index:                  1 !default;
+
+// Paragraphs
+//
+// Style p element.
+
+Kparagraph-margin-bottom:   1rem !default;
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+// scss-docs-start grid-breakpoints
+Kgrid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+// scss-docs-end grid-breakpoints
+
+@include _assert-ascending(Kgrid-breakpoints, "Kgrid-breakpoints");
+@include _assert-starts-at-zero(Kgrid-breakpoints, "Kgrid-breakpoints");
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// scss-docs-start container-max-widths
+Kcontainer-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+) !default;
+// scss-docs-end container-max-widths
+
+@include _assert-ascending(Kcontainer-max-widths, "Kcontainer-max-widths");
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+Kgrid-columns:                12 !default;
+Kgrid-gutter-width:           1.5rem !default;
+Kgrid-row-columns:            6 !default;
+
+Kgutters: Kspacers !default;
+
+// Container padding
+
+Kcontainer-padding-x: Kgrid-gutter-width * .5 !default;
+
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+// scss-docs-start border-variables
+Kborder-width:                1px !default;
+Kborder-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px
+) !default;
+
+Kborder-color:                Kgray-300 !default;
+// scss-docs-end border-variables
+
+// scss-docs-start border-radius-variables
+Kborder-radius:               .25rem !default;
+Kborder-radius-sm:            .2rem !default;
+Kborder-radius-lg:            .3rem !default;
+Kborder-radius-pill:          50rem !default;
+// scss-docs-end border-radius-variables
+
+// scss-docs-start box-shadow-variables
+Kbox-shadow:                  0 .5rem 1rem rgba(Kblack, .15) !default;
+Kbox-shadow-sm:               0 .125rem .25rem rgba(Kblack, .075) !default;
+Kbox-shadow-lg:               0 1rem 3rem rgba(Kblack, .175) !default;
+Kbox-shadow-inset:            inset 0 1px 2px rgba(Kblack, .075) !default;
+// scss-docs-end box-shadow-variables
+
+Kcomponent-active-color:      Kwhite !default;
+Kcomponent-active-bg:         Kprimary !default;
+
+// scss-docs-start caret-variables
+Kcaret-width:                 .3em !default;
+Kcaret-vertical-align:        Kcaret-width * .85 !default;
+Kcaret-spacing:               Kcaret-width * .85 !default;
+// scss-docs-end caret-variables
+
+Ktransition-base:             all .2s ease-in-out !default;
+Ktransition-fade:             opacity .15s linear !default;
+// scss-docs-start collapse-transition
+Ktransition-collapse:         height .35s ease !default;
+Ktransition-collapse-width:   width .35s ease !default;
+// scss-docs-end collapse-transition
+
+// stylelint-disable function-disallowed-list
+// scss-docs-start aspect-ratios
+Kaspect-ratios: (
+  "1x1": 100%,
+  "4x3": calc(3 / 4 * 100%),
+  "16x9": calc(9 / 16 * 100%),
+  "21x9": calc(9 / 21 * 100%)
+) !default;
+// scss-docs-end aspect-ratios
+// stylelint-enable function-disallowed-list
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// scss-docs-start font-variables
+// stylelint-disable value-keyword-case
+Kfont-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+Kfont-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+// stylelint-enable value-keyword-case
+Kfont-family-base:            var(--#{Kvariable-prefix}font-sans-serif) !default;
+Kfont-family-code:            var(--#{Kvariable-prefix}font-monospace) !default;
+
+// Kfont-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// Kfont-size-base affects the font size of the body text
+Kfont-size-root:              null !default;
+Kfont-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+Kfont-size-sm:                Kfont-size-base * .875 !default;
+Kfont-size-lg:                Kfont-size-base * 1.25 !default;
+
+Kfont-weight-lighter:         lighter !default;
+Kfont-weight-light:           300 !default;
+Kfont-weight-normal:          400 !default;
+Kfont-weight-bold:            700 !default;
+Kfont-weight-bolder:          bolder !default;
+
+Kfont-weight-base:            Kfont-weight-normal !default;
+
+Kline-height-base:            1.5 !default;
+Kline-height-sm:              1.25 !default;
+Kline-height-lg:              2 !default;
+
+Kh1-font-size:                Kfont-size-base * 2.5 !default;
+Kh2-font-size:                Kfont-size-base * 2 !default;
+Kh3-font-size:                Kfont-size-base * 1.75 !default;
+Kh4-font-size:                Kfont-size-base * 1.5 !default;
+Kh5-font-size:                Kfont-size-base * 1.25 !default;
+Kh6-font-size:                Kfont-size-base !default;
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+Kfont-sizes: (
+  1: Kh1-font-size,
+  2: Kh2-font-size,
+  3: Kh3-font-size,
+  4: Kh4-font-size,
+  5: Kh5-font-size,
+  6: Kh6-font-size
+) !default;
+// scss-docs-end font-sizes
+
+// scss-docs-start headings-variables
+Kheadings-margin-bottom:      Kspacer * .5 !default;
+Kheadings-font-family:        null !default;
+Kheadings-font-style:         null !default;
+Kheadings-font-weight:        500 !default;
+Kheadings-line-height:        1.2 !default;
+Kheadings-color:              null !default;
+// scss-docs-end headings-variables
+
+// scss-docs-start display-headings
+Kdisplay-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem
+) !default;
+
+Kdisplay-font-weight: 300 !default;
+Kdisplay-line-height: Kheadings-line-height !default;
+// scss-docs-end display-headings
+
+// scss-docs-start type-variables
+Klead-font-size:              Kfont-size-base * 1.25 !default;
+Klead-font-weight:            300 !default;
+
+Ksmall-font-size:             .875em !default;
+
+Ksub-sup-font-size:           .75em !default;
+
+Ktext-muted:                  Kgray-600 !default;
+
+Kinitialism-font-size:        Ksmall-font-size !default;
+
+Kblockquote-margin-y:         Kspacer !default;
+Kblockquote-font-size:        Kfont-size-base * 1.25 !default;
+Kblockquote-footer-color:     Kgray-600 !default;
+Kblockquote-footer-font-size: Ksmall-font-size !default;
+
+Khr-margin-y:                 Kspacer !default;
+Khr-color:                    inherit !default;
+Khr-height:                   Kborder-width !default;
+Khr-opacity:                  .25 !default;
+
+Klegend-margin-bottom:        .5rem !default;
+Klegend-font-size:            1.5rem !default;
+Klegend-font-weight:          null !default;
+
+Kmark-padding:                .2em !default;
+
+Kdt-font-weight:              Kfont-weight-bold !default;
+
+Knested-kbd-font-weight:      Kfont-weight-bold !default;
+
+Klist-inline-padding:         .5rem !default;
+
+Kmark-bg:                     #fcf8e3 !default;
+// scss-docs-end type-variables
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+// scss-docs-start table-variables
+Ktable-cell-padding-y:        .5rem !default;
+Ktable-cell-padding-x:        .5rem !default;
+Ktable-cell-padding-y-sm:     .25rem !default;
+Ktable-cell-padding-x-sm:     .25rem !default;
+
+Ktable-cell-vertical-align:   top !default;
+
+Ktable-color:                 Kbody-color !default;
+Ktable-bg:                    transparent !default;
+Ktable-accent-bg:             transparent !default;
+
+Ktable-th-font-weight:        null !default;
+
+Ktable-striped-color:         Ktable-color !default;
+Ktable-striped-bg-factor:     .05 !default;
+Ktable-striped-bg:            rgba(Kblack, Ktable-striped-bg-factor) !default;
+
+Ktable-active-color:          Ktable-color !default;
+Ktable-active-bg-factor:      .1 !default;
+Ktable-active-bg:             rgba(Kblack, Ktable-active-bg-factor) !default;
+
+Ktable-hover-color:           Ktable-color !default;
+Ktable-hover-bg-factor:       .075 !default;
+Ktable-hover-bg:              rgba(Kblack, Ktable-hover-bg-factor) !default;
+
+Ktable-border-factor:         .1 !default;
+Ktable-border-width:          Kborder-width !default;
+Ktable-border-color:          Kborder-color !default;
+
+Ktable-striped-order:         odd !default;
+
+Ktable-group-separator-color: currentColor !default;
+
+Ktable-caption-color:         Ktext-muted !default;
+
+Ktable-bg-scale:              -80% !default;
+// scss-docs-end table-variables
+
+// scss-docs-start table-loop
+Ktable-variants: (
+  "primary":    shift-color(Kprimary, Ktable-bg-scale),
+  "secondary":  shift-color(Ksecondary, Ktable-bg-scale),
+  "success":    shift-color(Ksuccess, Ktable-bg-scale),
+  "info":       shift-color(Kinfo, Ktable-bg-scale),
+  "warning":    shift-color(Kwarning, Ktable-bg-scale),
+  "danger":     shift-color(Kdanger, Ktable-bg-scale),
+  "light":      Klight,
+  "dark":       Kdark,
+) !default;
+// scss-docs-end table-loop
+
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `Kinput-` and `Kbtn-` specific variables.
+
+// scss-docs-start input-btn-variables
+Kinput-btn-padding-y:         .375rem !default;
+Kinput-btn-padding-x:         .75rem !default;
+Kinput-btn-font-family:       null !default;
+Kinput-btn-font-size:         Kfont-size-base !default;
+Kinput-btn-line-height:       Kline-height-base !default;
+
+Kinput-btn-focus-width:         .25rem !default;
+Kinput-btn-focus-color-opacity: .25 !default;
+Kinput-btn-focus-color:         rgba(Kcomponent-active-bg, Kinput-btn-focus-color-opacity) !default;
+Kinput-btn-focus-blur:          0 !default;
+Kinput-btn-focus-box-shadow:    0 0 Kinput-btn-focus-blur Kinput-btn-focus-width Kinput-btn-focus-color !default;
+
+Kinput-btn-padding-y-sm:      .25rem !default;
+Kinput-btn-padding-x-sm:      .5rem !default;
+Kinput-btn-font-size-sm:      Kfont-size-sm !default;
+
+Kinput-btn-padding-y-lg:      .5rem !default;
+Kinput-btn-padding-x-lg:      1rem !default;
+Kinput-btn-font-size-lg:      Kfont-size-lg !default;
+
+Kinput-btn-border-width:      Kborder-width !default;
+// scss-docs-end input-btn-variables
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+// scss-docs-start btn-variables
+Kbtn-padding-y:               Kinput-btn-padding-y !default;
+Kbtn-padding-x:               Kinput-btn-padding-x !default;
+Kbtn-font-family:             Kinput-btn-font-family !default;
+Kbtn-font-size:               Kinput-btn-font-size !default;
+Kbtn-line-height:             Kinput-btn-line-height !default;
+Kbtn-white-space:             null !default; // Set to `nowrap` to prevent text wrapping
+
+Kbtn-padding-y-sm:            Kinput-btn-padding-y-sm !default;
+Kbtn-padding-x-sm:            Kinput-btn-padding-x-sm !default;
+Kbtn-font-size-sm:            Kinput-btn-font-size-sm !default;
+
+Kbtn-padding-y-lg:            Kinput-btn-padding-y-lg !default;
+Kbtn-padding-x-lg:            Kinput-btn-padding-x-lg !default;
+Kbtn-font-size-lg:            Kinput-btn-font-size-lg !default;
+
+Kbtn-border-width:            Kinput-btn-border-width !default;
+
+Kbtn-font-weight:             Kfont-weight-normal !default;
+Kbtn-box-shadow:              inset 0 1px 0 rgba(Kwhite, .15), 0 1px 1px rgba(Kblack, .075) !default;
+Kbtn-focus-width:             Kinput-btn-focus-width !default;
+Kbtn-focus-box-shadow:        Kinput-btn-focus-box-shadow !default;
+Kbtn-disabled-opacity:        .65 !default;
+Kbtn-active-box-shadow:       inset 0 3px 5px rgba(Kblack, .125) !default;
+
+Kbtn-link-color:              Klink-color !default;
+Kbtn-link-hover-color:        Klink-hover-color !default;
+Kbtn-link-disabled-color:     Kgray-600 !default;
+
+// Allows for customizing button radius independently from global border radius
+Kbtn-border-radius:           Kborder-radius !default;
+Kbtn-border-radius-sm:        Kborder-radius-sm !default;
+Kbtn-border-radius-lg:        Kborder-radius-lg !default;
+
+Kbtn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+Kbtn-hover-bg-shade-amount:       15% !default;
+Kbtn-hover-bg-tint-amount:        15% !default;
+Kbtn-hover-border-shade-amount:   20% !default;
+Kbtn-hover-border-tint-amount:    10% !default;
+Kbtn-active-bg-shade-amount:      20% !default;
+Kbtn-active-bg-tint-amount:       20% !default;
+Kbtn-active-border-shade-amount:  25% !default;
+Kbtn-active-border-tint-amount:   10% !default;
+// scss-docs-end btn-variables
+
+
+// Forms
+
+// scss-docs-start form-text-variables
+Kform-text-margin-top:                  .25rem !default;
+Kform-text-font-size:                   Ksmall-font-size !default;
+Kform-text-font-style:                  null !default;
+Kform-text-font-weight:                 null !default;
+Kform-text-color:                       Ktext-muted !default;
+// scss-docs-end form-text-variables
+
+// scss-docs-start form-label-variables
+Kform-label-margin-bottom:              .5rem !default;
+Kform-label-font-size:                  null !default;
+Kform-label-font-style:                 null !default;
+Kform-label-font-weight:                null !default;
+Kform-label-color:                      null !default;
+// scss-docs-end form-label-variables
+
+// scss-docs-start form-input-variables
+Kinput-padding-y:                       Kinput-btn-padding-y !default;
+Kinput-padding-x:                       Kinput-btn-padding-x !default;
+Kinput-font-family:                     Kinput-btn-font-family !default;
+Kinput-font-size:                       Kinput-btn-font-size !default;
+Kinput-font-weight:                     Kfont-weight-base !default;
+Kinput-line-height:                     Kinput-btn-line-height !default;
+
+Kinput-padding-y-sm:                    Kinput-btn-padding-y-sm !default;
+Kinput-padding-x-sm:                    Kinput-btn-padding-x-sm !default;
+Kinput-font-size-sm:                    Kinput-btn-font-size-sm !default;
+
+Kinput-padding-y-lg:                    Kinput-btn-padding-y-lg !default;
+Kinput-padding-x-lg:                    Kinput-btn-padding-x-lg !default;
+Kinput-font-size-lg:                    Kinput-btn-font-size-lg !default;
+
+Kinput-bg:                              Kbody-bg !default;
+Kinput-disabled-bg:                     Kgray-200 !default;
+Kinput-disabled-border-color:           null !default;
+
+Kinput-color:                           Kbody-color !default;
+Kinput-border-color:                    Kgray-400 !default;
+Kinput-border-width:                    Kinput-btn-border-width !default;
+Kinput-box-shadow:                      Kbox-shadow-inset !default;
+
+Kinput-border-radius:                   Kborder-radius !default;
+Kinput-border-radius-sm:                Kborder-radius-sm !default;
+Kinput-border-radius-lg:                Kborder-radius-lg !default;
+
+Kinput-focus-bg:                        Kinput-bg !default;
+Kinput-focus-border-color:              tint-color(Kcomponent-active-bg, 50%) !default;
+Kinput-focus-color:                     Kinput-color !default;
+Kinput-focus-width:                     Kinput-btn-focus-width !default;
+Kinput-focus-box-shadow:                Kinput-btn-focus-box-shadow !default;
+
+Kinput-placeholder-color:               Kgray-600 !default;
+Kinput-plaintext-color:                 Kbody-color !default;
+
+Kinput-height-border:                   Kinput-border-width * 2 !default;
+
+Kinput-height-inner:                    add(Kinput-line-height * 1em, Kinput-padding-y * 2) !default;
+Kinput-height-inner-half:               add(Kinput-line-height * .5em, Kinput-padding-y) !default;
+Kinput-height-inner-quarter:            add(Kinput-line-height * .25em, Kinput-padding-y * .5) !default;
+
+Kinput-height:                          add(Kinput-line-height * 1em, add(Kinput-padding-y * 2, Kinput-height-border, false)) !default;
+Kinput-height-sm:                       add(Kinput-line-height * 1em, add(Kinput-padding-y-sm * 2, Kinput-height-border, false)) !default;
+Kinput-height-lg:                       add(Kinput-line-height * 1em, add(Kinput-padding-y-lg * 2, Kinput-height-border, false)) !default;
+
+Kinput-transition:                      border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+Kform-color-width:                      3rem !default;
+// scss-docs-end form-input-variables
+
+// scss-docs-start form-check-variables
+Kform-check-input-width:                  1em !default;
+Kform-check-min-height:                   Kfont-size-base * Kline-height-base !default;
+Kform-check-padding-start:                Kform-check-input-width + .5em !default;
+Kform-check-margin-bottom:                .125rem !default;
+Kform-check-label-color:                  null !default;
+Kform-check-label-cursor:                 null !default;
+Kform-check-transition:                   null !default;
+
+Kform-check-input-active-filter:          brightness(90%) !default;
+
+Kform-check-input-bg:                     Kinput-bg !default;
+Kform-check-input-border:                 1px solid rgba(Kblack, .25) !default;
+Kform-check-input-border-radius:          .25em !default;
+Kform-check-radio-border-radius:          50% !default;
+Kform-check-input-focus-border:           Kinput-focus-border-color !default;
+Kform-check-input-focus-box-shadow:       Kinput-btn-focus-box-shadow !default;
+
+Kform-check-input-checked-color:          Kcomponent-active-color !default;
+Kform-check-input-checked-bg-color:       Kcomponent-active-bg !default;
+Kform-check-input-checked-border-color:   Kform-check-input-checked-bg-color !default;
+Kform-check-input-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{Kform-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/></svg>") !default;
+Kform-check-radio-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{Kform-check-input-checked-color}'/></svg>") !default;
+
+Kform-check-input-indeterminate-color:          Kcomponent-active-color !default;
+Kform-check-input-indeterminate-bg-color:       Kcomponent-active-bg !default;
+Kform-check-input-indeterminate-border-color:   Kform-check-input-indeterminate-bg-color !default;
+Kform-check-input-indeterminate-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{Kform-check-input-indeterminate-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>") !default;
+
+Kform-check-input-disabled-opacity:        .5 !default;
+Kform-check-label-disabled-opacity:        Kform-check-input-disabled-opacity !default;
+Kform-check-btn-check-disabled-opacity:    Kbtn-disabled-opacity !default;
+
+Kform-check-inline-margin-end:    1rem !default;
+// scss-docs-end form-check-variables
+
+// scss-docs-start form-switch-variables
+Kform-switch-color:               rgba(Kblack, .25) !default;
+Kform-switch-width:               2em !default;
+Kform-switch-padding-start:       Kform-switch-width + .5em !default;
+Kform-switch-bg-image:            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{Kform-switch-color}'/></svg>") !default;
+Kform-switch-border-radius:       Kform-switch-width !default;
+Kform-switch-transition:          background-position .15s ease-in-out !default;
+
+Kform-switch-focus-color:         Kinput-focus-border-color !default;
+Kform-switch-focus-bg-image:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{Kform-switch-focus-color}'/></svg>") !default;
+
+Kform-switch-checked-color:       Kcomponent-active-color !default;
+Kform-switch-checked-bg-image:    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{Kform-switch-checked-color}'/></svg>") !default;
+Kform-switch-checked-bg-position: right center !default;
+// scss-docs-end form-switch-variables
+
+// scss-docs-start input-group-variables
+Kinput-group-addon-padding-y:           Kinput-padding-y !default;
+Kinput-group-addon-padding-x:           Kinput-padding-x !default;
+Kinput-group-addon-font-weight:         Kinput-font-weight !default;
+Kinput-group-addon-color:               Kinput-color !default;
+Kinput-group-addon-bg:                  Kgray-200 !default;
+Kinput-group-addon-border-color:        Kinput-border-color !default;
+// scss-docs-end input-group-variables
+
+// scss-docs-start form-select-variables
+Kform-select-padding-y:             Kinput-padding-y !default;
+Kform-select-padding-x:             Kinput-padding-x !default;
+Kform-select-font-family:           Kinput-font-family !default;
+Kform-select-font-size:             Kinput-font-size !default;
+Kform-select-indicator-padding:     Kform-select-padding-x * 3 !default; // Extra padding for background-image
+Kform-select-font-weight:           Kinput-font-weight !default;
+Kform-select-line-height:           Kinput-line-height !default;
+Kform-select-color:                 Kinput-color !default;
+Kform-select-bg:                    Kinput-bg !default;
+Kform-select-disabled-color:        null !default;
+Kform-select-disabled-bg:           Kgray-200 !default;
+Kform-select-disabled-border-color: Kinput-disabled-border-color !default;
+Kform-select-bg-position:           right Kform-select-padding-x center !default;
+Kform-select-bg-size:               16px 12px !default; // In pixels because image dimensions
+Kform-select-indicator-color:       Kgray-800 !default;
+Kform-select-indicator:             url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{Kform-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default;
+
+Kform-select-feedback-icon-padding-end: Kform-select-padding-x * 2.5 + Kform-select-indicator-padding !default;
+Kform-select-feedback-icon-position:    center right Kform-select-indicator-padding !default;
+Kform-select-feedback-icon-size:        Kinput-height-inner-half Kinput-height-inner-half !default;
+
+Kform-select-border-width:        Kinput-border-width !default;
+Kform-select-border-color:        Kinput-border-color !default;
+Kform-select-border-radius:       Kinput-border-radius !default;
+Kform-select-box-shadow:          Kbox-shadow-inset !default;
+
+Kform-select-focus-border-color:  Kinput-focus-border-color !default;
+Kform-select-focus-width:         Kinput-focus-width !default;
+Kform-select-focus-box-shadow:    0 0 0 Kform-select-focus-width Kinput-btn-focus-color !default;
+
+Kform-select-padding-y-sm:        Kinput-padding-y-sm !default;
+Kform-select-padding-x-sm:        Kinput-padding-x-sm !default;
+Kform-select-font-size-sm:        Kinput-font-size-sm !default;
+Kform-select-border-radius-sm:    Kinput-border-radius-sm !default;
+
+Kform-select-padding-y-lg:        Kinput-padding-y-lg !default;
+Kform-select-padding-x-lg:        Kinput-padding-x-lg !default;
+Kform-select-font-size-lg:        Kinput-font-size-lg !default;
+Kform-select-border-radius-lg:    Kinput-border-radius-lg !default;
+
+Kform-select-transition:          Kinput-transition !default;
+// scss-docs-end form-select-variables
+
+// scss-docs-start form-range-variables
+Kform-range-track-width:          100% !default;
+Kform-range-track-height:         .5rem !default;
+Kform-range-track-cursor:         pointer !default;
+Kform-range-track-bg:             Kgray-300 !default;
+Kform-range-track-border-radius:  1rem !default;
+Kform-range-track-box-shadow:     Kbox-shadow-inset !default;
+
+Kform-range-thumb-width:                   1rem !default;
+Kform-range-thumb-height:                  Kform-range-thumb-width !default;
+Kform-range-thumb-bg:                      Kcomponent-active-bg !default;
+Kform-range-thumb-border:                  0 !default;
+Kform-range-thumb-border-radius:           1rem !default;
+Kform-range-thumb-box-shadow:              0 .1rem .25rem rgba(Kblack, .1) !default;
+Kform-range-thumb-focus-box-shadow:        0 0 0 1px Kbody-bg, Kinput-focus-box-shadow !default;
+Kform-range-thumb-focus-box-shadow-width:  Kinput-focus-width !default; // For focus box shadow issue in Edge
+Kform-range-thumb-active-bg:               tint-color(Kcomponent-active-bg, 70%) !default;
+Kform-range-thumb-disabled-bg:             Kgray-500 !default;
+Kform-range-thumb-transition:              background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+// scss-docs-end form-range-variables
+
+// scss-docs-start form-file-variables
+Kform-file-button-color:          Kinput-color !default;
+Kform-file-button-bg:             Kinput-group-addon-bg !default;
+Kform-file-button-hover-bg:       shade-color(Kform-file-button-bg, 5%) !default;
+// scss-docs-end form-file-variables
+
+// scss-docs-start form-floating-variables
+Kform-floating-height:            add(3.5rem, Kinput-height-border) !default;
+Kform-floating-line-height:       1.25 !default;
+Kform-floating-padding-x:         Kinput-padding-x !default;
+Kform-floating-padding-y:         1rem !default;
+Kform-floating-input-padding-t:   1.625rem !default;
+Kform-floating-input-padding-b:   .625rem !default;
+Kform-floating-label-opacity:     .65 !default;
+Kform-floating-label-transform:   scale(.85) translateY(-.5rem) translateX(.15rem) !default;
+Kform-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out !default;
+// scss-docs-end form-floating-variables
+
+// Form validation
+
+// scss-docs-start form-feedback-variables
+Kform-feedback-margin-top:          Kform-text-margin-top !default;
+Kform-feedback-font-size:           Kform-text-font-size !default;
+Kform-feedback-font-style:          Kform-text-font-style !default;
+Kform-feedback-valid-color:         Ksuccess !default;
+Kform-feedback-invalid-color:       Kdanger !default;
+
+Kform-feedback-icon-valid-color:    Kform-feedback-valid-color !default;
+Kform-feedback-icon-valid:          url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{Kform-feedback-icon-valid-color}' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
+Kform-feedback-icon-invalid-color:  Kform-feedback-invalid-color !default;
+Kform-feedback-icon-invalid:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{Kform-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{Kform-feedback-icon-invalid-color}' stroke='none'/></svg>") !default;
+// scss-docs-end form-feedback-variables
+
+// scss-docs-start form-validation-states
+Kform-validation-states: (
+  "valid": (
+    "color": Kform-feedback-valid-color,
+    "icon": Kform-feedback-icon-valid
+  ),
+  "invalid": (
+    "color": Kform-feedback-invalid-color,
+    "icon": Kform-feedback-icon-invalid
+  )
+) !default;
+// scss-docs-end form-validation-states
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+// scss-docs-start zindex-stack
+Kzindex-dropdown:                   1000 !default;
+Kzindex-sticky:                     1020 !default;
+Kzindex-fixed:                      1030 !default;
+Kzindex-offcanvas-backdrop:         1040 !default;
+Kzindex-offcanvas:                  1045 !default;
+Kzindex-modal-backdrop:             1050 !default;
+Kzindex-modal:                      1055 !default;
+Kzindex-popover:                    1070 !default;
+Kzindex-tooltip:                    1080 !default;
+// scss-docs-end zindex-stack
+
+
+// Navs
+
+// scss-docs-start nav-variables
+Knav-link-padding-y:                .5rem !default;
+Knav-link-padding-x:                1rem !default;
+Knav-link-font-size:                null !default;
+Knav-link-font-weight:              null !default;
+Knav-link-color:                    Klink-color !default;
+Knav-link-hover-color:              Klink-hover-color !default;
+Knav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+Knav-link-disabled-color:           Kgray-600 !default;
+
+Knav-tabs-border-color:             Kgray-300 !default;
+Knav-tabs-border-width:             Kborder-width !default;
+Knav-tabs-border-radius:            Kborder-radius !default;
+Knav-tabs-link-hover-border-color:  Kgray-200 Kgray-200 Knav-tabs-border-color !default;
+Knav-tabs-link-active-color:        Kgray-700 !default;
+Knav-tabs-link-active-bg:           Kbody-bg !default;
+Knav-tabs-link-active-border-color: Kgray-300 Kgray-300 Knav-tabs-link-active-bg !default;
+
+Knav-pills-border-radius:           Kborder-radius !default;
+Knav-pills-link-active-color:       Kcomponent-active-color !default;
+Knav-pills-link-active-bg:          Kcomponent-active-bg !default;
+// scss-docs-end nav-variables
+
+
+// Navbar
+
+// scss-docs-start navbar-variables
+Knavbar-padding-y:                  Kspacer * .5 !default;
+Knavbar-padding-x:                  null !default;
+
+Knavbar-nav-link-padding-x:         .5rem !default;
+
+Knavbar-brand-font-size:            Kfont-size-lg !default;
+// Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
+Knav-link-height:                   Kfont-size-base * Kline-height-base + Knav-link-padding-y * 2 !default;
+Knavbar-brand-height:               Knavbar-brand-font-size * Kline-height-base !default;
+Knavbar-brand-padding-y:            (Knav-link-height - Knavbar-brand-height) * .5 !default;
+Knavbar-brand-margin-end:           1rem !default;
+
+Knavbar-toggler-padding-y:          .25rem !default;
+Knavbar-toggler-padding-x:          .75rem !default;
+Knavbar-toggler-font-size:          Kfont-size-lg !default;
+Knavbar-toggler-border-radius:      Kbtn-border-radius !default;
+Knavbar-toggler-focus-width:        Kbtn-focus-width !default;
+Knavbar-toggler-transition:         box-shadow .15s ease-in-out !default;
+// scss-docs-end navbar-variables
+
+// scss-docs-start navbar-theme-variables
+Knavbar-dark-color:                 rgba(Kwhite, .55) !default;
+Knavbar-dark-hover-color:           rgba(Kwhite, .75) !default;
+Knavbar-dark-active-color:          Kwhite !default;
+Knavbar-dark-disabled-color:        rgba(Kwhite, .25) !default;
+Knavbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{Knavbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+Knavbar-dark-toggler-border-color:  rgba(Kwhite, .1) !default;
+
+Knavbar-light-color:                rgba(Kblack, .55) !default;
+Knavbar-light-hover-color:          rgba(Kblack, .7) !default;
+Knavbar-light-active-color:         rgba(Kblack, .9) !default;
+Knavbar-light-disabled-color:       rgba(Kblack, .3) !default;
+Knavbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{Knavbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+Knavbar-light-toggler-border-color: rgba(Kblack, .1) !default;
+
+Knavbar-light-brand-color:                Knavbar-light-active-color !default;
+Knavbar-light-brand-hover-color:          Knavbar-light-active-color !default;
+Knavbar-dark-brand-color:                 Knavbar-dark-active-color !default;
+Knavbar-dark-brand-hover-color:           Knavbar-dark-active-color !default;
+// scss-docs-end navbar-theme-variables
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+// scss-docs-start dropdown-variables
+Kdropdown-min-width:                10rem !default;
+Kdropdown-padding-x:                0 !default;
+Kdropdown-padding-y:                .5rem !default;
+Kdropdown-spacer:                   .125rem !default;
+Kdropdown-font-size:                Kfont-size-base !default;
+Kdropdown-color:                    Kbody-color !default;
+Kdropdown-bg:                       Kwhite !default;
+Kdropdown-border-color:             rgba(Kblack, .15) !default;
+Kdropdown-border-radius:            Kborder-radius !default;
+Kdropdown-border-width:             Kborder-width !default;
+Kdropdown-inner-border-radius:      subtract(Kdropdown-border-radius, Kdropdown-border-width) !default;
+Kdropdown-divider-bg:               Kdropdown-border-color !default;
+Kdropdown-divider-margin-y:         Kspacer * .5 !default;
+Kdropdown-box-shadow:               Kbox-shadow !default;
+
+Kdropdown-link-color:               Kgray-900 !default;
+Kdropdown-link-hover-color:         shade-color(Kdropdown-link-color, 10%) !default;
+Kdropdown-link-hover-bg:            Kgray-200 !default;
+
+Kdropdown-link-active-color:        Kcomponent-active-color !default;
+Kdropdown-link-active-bg:           Kcomponent-active-bg !default;
+
+Kdropdown-link-disabled-color:      Kgray-500 !default;
+
+Kdropdown-item-padding-y:           Kspacer * .25 !default;
+Kdropdown-item-padding-x:           Kspacer !default;
+
+Kdropdown-header-color:             Kgray-600 !default;
+Kdropdown-header-padding:           Kdropdown-padding-y Kdropdown-item-padding-x !default;
+// scss-docs-end dropdown-variables
+
+// scss-docs-start dropdown-dark-variables
+Kdropdown-dark-color:               Kgray-300 !default;
+Kdropdown-dark-bg:                  Kgray-800 !default;
+Kdropdown-dark-border-color:        Kdropdown-border-color !default;
+Kdropdown-dark-divider-bg:          Kdropdown-divider-bg !default;
+Kdropdown-dark-box-shadow:          null !default;
+Kdropdown-dark-link-color:          Kdropdown-dark-color !default;
+Kdropdown-dark-link-hover-color:    Kwhite !default;
+Kdropdown-dark-link-hover-bg:       rgba(Kwhite, .15) !default;
+Kdropdown-dark-link-active-color:   Kdropdown-link-active-color !default;
+Kdropdown-dark-link-active-bg:      Kdropdown-link-active-bg !default;
+Kdropdown-dark-link-disabled-color: Kgray-500 !default;
+Kdropdown-dark-header-color:        Kgray-500 !default;
+// scss-docs-end dropdown-dark-variables
+
+
+// Pagination
+
+// scss-docs-start pagination-variables
+Kpagination-padding-y:              .375rem !default;
+Kpagination-padding-x:              .75rem !default;
+Kpagination-padding-y-sm:           .25rem !default;
+Kpagination-padding-x-sm:           .5rem !default;
+Kpagination-padding-y-lg:           .75rem !default;
+Kpagination-padding-x-lg:           1.5rem !default;
+
+Kpagination-color:                  Klink-color !default;
+Kpagination-bg:                     Kwhite !default;
+Kpagination-border-width:           Kborder-width !default;
+Kpagination-border-radius:          Kborder-radius !default;
+Kpagination-margin-start:           -Kpagination-border-width !default;
+Kpagination-border-color:           Kgray-300 !default;
+
+Kpagination-focus-color:            Klink-hover-color !default;
+Kpagination-focus-bg:               Kgray-200 !default;
+Kpagination-focus-box-shadow:       Kinput-btn-focus-box-shadow !default;
+Kpagination-focus-outline:          0 !default;
+
+Kpagination-hover-color:            Klink-hover-color !default;
+Kpagination-hover-bg:               Kgray-200 !default;
+Kpagination-hover-border-color:     Kgray-300 !default;
+
+Kpagination-active-color:           Kcomponent-active-color !default;
+Kpagination-active-bg:              Kcomponent-active-bg !default;
+Kpagination-active-border-color:    Kpagination-active-bg !default;
+
+Kpagination-disabled-color:         Kgray-600 !default;
+Kpagination-disabled-bg:            Kwhite !default;
+Kpagination-disabled-border-color:  Kgray-300 !default;
+
+Kpagination-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+Kpagination-border-radius-sm:       Kborder-radius-sm !default;
+Kpagination-border-radius-lg:       Kborder-radius-lg !default;
+// scss-docs-end pagination-variables
+
+
+// Placeholders
+
+// scss-docs-start placeholders
+Kplaceholder-opacity-max:           .5 !default;
+Kplaceholder-opacity-min:           .2 !default;
+// scss-docs-end placeholders
+
+// Cards
+
+// scss-docs-start card-variables
+Kcard-spacer-y:                     Kspacer !default;
+Kcard-spacer-x:                     Kspacer !default;
+Kcard-title-spacer-y:               Kspacer * .5 !default;
+Kcard-border-width:                 Kborder-width !default;
+Kcard-border-color:                 rgba(Kblack, .125) !default;
+Kcard-border-radius:                Kborder-radius !default;
+Kcard-box-shadow:                   null !default;
+Kcard-inner-border-radius:          subtract(Kcard-border-radius, Kcard-border-width) !default;
+Kcard-cap-padding-y:                Kcard-spacer-y * .5 !default;
+Kcard-cap-padding-x:                Kcard-spacer-x !default;
+Kcard-cap-bg:                       rgba(Kblack, .03) !default;
+Kcard-cap-color:                    null !default;
+Kcard-height:                       null !default;
+Kcard-color:                        null !default;
+Kcard-bg:                           Kwhite !default;
+Kcard-img-overlay-padding:          Kspacer !default;
+Kcard-group-margin:                 Kgrid-gutter-width * .5 !default;
+// scss-docs-end card-variables
+
+// Accordion
+
+// scss-docs-start accordion-variables
+Kaccordion-padding-y:                     1rem !default;
+Kaccordion-padding-x:                     1.25rem !default;
+Kaccordion-color:                         Kbody-color !default;
+Kaccordion-bg:                            Kbody-bg !default;
+Kaccordion-border-width:                  Kborder-width !default;
+Kaccordion-border-color:                  rgba(Kblack, .125) !default;
+Kaccordion-border-radius:                 Kborder-radius !default;
+Kaccordion-inner-border-radius:           subtract(Kaccordion-border-radius, Kaccordion-border-width) !default;
+
+Kaccordion-body-padding-y:                Kaccordion-padding-y !default;
+Kaccordion-body-padding-x:                Kaccordion-padding-x !default;
+
+Kaccordion-button-padding-y:              Kaccordion-padding-y !default;
+Kaccordion-button-padding-x:              Kaccordion-padding-x !default;
+Kaccordion-button-color:                  Kaccordion-color !default;
+Kaccordion-button-bg:                     Kaccordion-bg !default;
+Kaccordion-transition:                    Kbtn-transition, border-radius .15s ease !default;
+Kaccordion-button-active-bg:              tint-color(Kcomponent-active-bg, 90%) !default;
+Kaccordion-button-active-color:           shade-color(Kprimary, 10%) !default;
+
+Kaccordion-button-focus-border-color:     Kinput-focus-border-color !default;
+Kaccordion-button-focus-box-shadow:       Kbtn-focus-box-shadow !default;
+
+Kaccordion-icon-width:                    1.25rem !default;
+Kaccordion-icon-color:                    Kaccordion-button-color !default;
+Kaccordion-icon-active-color:             Kaccordion-button-active-color !default;
+Kaccordion-icon-transition:               transform .2s ease-in-out !default;
+Kaccordion-icon-transform:                rotate(-180deg) !default;
+
+Kaccordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{Kaccordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+Kaccordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{Kaccordion-icon-active-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+// scss-docs-end accordion-variables
+
+// Tooltips
+
+// scss-docs-start tooltip-variables
+Ktooltip-font-size:                 Kfont-size-sm !default;
+Ktooltip-max-width:                 200px !default;
+Ktooltip-color:                     Kwhite !default;
+Ktooltip-bg:                        Kblack !default;
+Ktooltip-border-radius:             Kborder-radius !default;
+Ktooltip-opacity:                   .9 !default;
+Ktooltip-padding-y:                 Kspacer * .25 !default;
+Ktooltip-padding-x:                 Kspacer * .5 !default;
+Ktooltip-margin:                    0 !default;
+
+Ktooltip-arrow-width:               .8rem !default;
+Ktooltip-arrow-height:              .4rem !default;
+Ktooltip-arrow-color:               Ktooltip-bg !default;
+// scss-docs-end tooltip-variables
+
+// Form tooltips must come after regular tooltips
+// scss-docs-start tooltip-feedback-variables
+Kform-feedback-tooltip-padding-y:     Ktooltip-padding-y !default;
+Kform-feedback-tooltip-padding-x:     Ktooltip-padding-x !default;
+Kform-feedback-tooltip-font-size:     Ktooltip-font-size !default;
+Kform-feedback-tooltip-line-height:   null !default;
+Kform-feedback-tooltip-opacity:       Ktooltip-opacity !default;
+Kform-feedback-tooltip-border-radius: Ktooltip-border-radius !default;
+// scss-docs-end tooltip-feedback-variables
+
+
+// Popovers
+
+// scss-docs-start popover-variables
+Kpopover-font-size:                 Kfont-size-sm !default;
+Kpopover-bg:                        Kwhite !default;
+Kpopover-max-width:                 276px !default;
+Kpopover-border-width:              Kborder-width !default;
+Kpopover-border-color:              rgba(Kblack, .2) !default;
+Kpopover-border-radius:             Kborder-radius-lg !default;
+Kpopover-inner-border-radius:       subtract(Kpopover-border-radius, Kpopover-border-width) !default;
+Kpopover-box-shadow:                Kbox-shadow !default;
+
+Kpopover-header-bg:                 shade-color(Kpopover-bg, 6%) !default;
+Kpopover-header-color:              Kheadings-color !default;
+Kpopover-header-padding-y:          .5rem !default;
+Kpopover-header-padding-x:          Kspacer !default;
+
+Kpopover-body-color:                Kbody-color !default;
+Kpopover-body-padding-y:            Kspacer !default;
+Kpopover-body-padding-x:            Kspacer !default;
+
+Kpopover-arrow-width:               1rem !default;
+Kpopover-arrow-height:              .5rem !default;
+Kpopover-arrow-color:               Kpopover-bg !default;
+
+Kpopover-arrow-outer-color:         fade-in(Kpopover-border-color, .05) !default;
+// scss-docs-end popover-variables
+
+
+// Toasts
+
+// scss-docs-start toast-variables
+Ktoast-max-width:                   350px !default;
+Ktoast-padding-x:                   .75rem !default;
+Ktoast-padding-y:                   .5rem !default;
+Ktoast-font-size:                   .875rem !default;
+Ktoast-color:                       null !default;
+Ktoast-background-color:            rgba(Kwhite, .85) !default;
+Ktoast-border-width:                1px !default;
+Ktoast-border-color:                rgba(Kblack, .1) !default;
+Ktoast-border-radius:               Kborder-radius !default;
+Ktoast-box-shadow:                  Kbox-shadow !default;
+Ktoast-spacing:                     Kcontainer-padding-x !default;
+
+Ktoast-header-color:                Kgray-600 !default;
+Ktoast-header-background-color:     rgba(Kwhite, .85) !default;
+Ktoast-header-border-color:         rgba(Kblack, .05) !default;
+// scss-docs-end toast-variables
+
+
+// Badges
+
+// scss-docs-start badge-variables
+Kbadge-font-size:                   .75em !default;
+Kbadge-font-weight:                 Kfont-weight-bold !default;
+Kbadge-color:                       Kwhite !default;
+Kbadge-padding-y:                   .35em !default;
+Kbadge-padding-x:                   .65em !default;
+Kbadge-border-radius:               Kborder-radius !default;
+// scss-docs-end badge-variables
+
+
+// Modals
+
+// scss-docs-start modal-variables
+Kmodal-inner-padding:               Kspacer !default;
+
+Kmodal-footer-margin-between:       .5rem !default;
+
+Kmodal-dialog-margin:               .5rem !default;
+Kmodal-dialog-margin-y-sm-up:       1.75rem !default;
+
+Kmodal-title-line-height:           Kline-height-base !default;
+
+Kmodal-content-color:               null !default;
+Kmodal-content-bg:                  Kwhite !default;
+Kmodal-content-border-color:        rgba(Kblack, .2) !default;
+Kmodal-content-border-width:        Kborder-width !default;
+Kmodal-content-border-radius:       Kborder-radius-lg !default;
+Kmodal-content-inner-border-radius: subtract(Kmodal-content-border-radius, Kmodal-content-border-width) !default;
+Kmodal-content-box-shadow-xs:       Kbox-shadow-sm !default;
+Kmodal-content-box-shadow-sm-up:    Kbox-shadow !default;
+
+Kmodal-backdrop-bg:                 Kblack !default;
+Kmodal-backdrop-opacity:            .5 !default;
+Kmodal-header-border-color:         Kborder-color !default;
+Kmodal-footer-border-color:         Kmodal-header-border-color !default;
+Kmodal-header-border-width:         Kmodal-content-border-width !default;
+Kmodal-footer-border-width:         Kmodal-header-border-width !default;
+Kmodal-header-padding-y:            Kmodal-inner-padding !default;
+Kmodal-header-padding-x:            Kmodal-inner-padding !default;
+Kmodal-header-padding:              Kmodal-header-padding-y Kmodal-header-padding-x !default; // Keep this for backwards compatibility
+
+Kmodal-sm:                          300px !default;
+Kmodal-md:                          500px !default;
+Kmodal-lg:                          800px !default;
+Kmodal-xl:                          1140px !default;
+
+Kmodal-fade-transform:              translate(0, -50px) !default;
+Kmodal-show-transform:              none !default;
+Kmodal-transition:                  transform .3s ease-out !default;
+Kmodal-scale-transform:             scale(1.02) !default;
+// scss-docs-end modal-variables
+
+
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+
+// scss-docs-start alert-variables
+Kalert-padding-y:               Kspacer !default;
+Kalert-padding-x:               Kspacer !default;
+Kalert-margin-bottom:           1rem !default;
+Kalert-border-radius:           Kborder-radius !default;
+Kalert-link-font-weight:        Kfont-weight-bold !default;
+Kalert-border-width:            Kborder-width !default;
+Kalert-bg-scale:                -80% !default;
+Kalert-border-scale:            -70% !default;
+Kalert-color-scale:             40% !default;
+Kalert-dismissible-padding-r:   Kalert-padding-x * 3 !default; // 3x covers width of x plus default padding on either side
+// scss-docs-end alert-variables
+
+
+// Progress bars
+
+// scss-docs-start progress-variables
+Kprogress-height:                   1rem !default;
+Kprogress-font-size:                Kfont-size-base * .75 !default;
+Kprogress-bg:                       Kgray-200 !default;
+Kprogress-border-radius:            Kborder-radius !default;
+Kprogress-box-shadow:               Kbox-shadow-inset !default;
+Kprogress-bar-color:                Kwhite !default;
+Kprogress-bar-bg:                   Kprimary !default;
+Kprogress-bar-animation-timing:     1s linear infinite !default;
+Kprogress-bar-transition:           width .6s ease !default;
+// scss-docs-end progress-variables
+
+
+// List group
+
+// scss-docs-start list-group-variables
+Klist-group-color:                  Kgray-900 !default;
+Klist-group-bg:                     Kwhite !default;
+Klist-group-border-color:           rgba(Kblack, .125) !default;
+Klist-group-border-width:           Kborder-width !default;
+Klist-group-border-radius:          Kborder-radius !default;
+
+Klist-group-item-padding-y:         Kspacer * .5 !default;
+Klist-group-item-padding-x:         Kspacer !default;
+Klist-group-item-bg-scale:          -80% !default;
+Klist-group-item-color-scale:       40% !default;
+
+Klist-group-hover-bg:               Kgray-100 !default;
+Klist-group-active-color:           Kcomponent-active-color !default;
+Klist-group-active-bg:              Kcomponent-active-bg !default;
+Klist-group-active-border-color:    Klist-group-active-bg !default;
+
+Klist-group-disabled-color:         Kgray-600 !default;
+Klist-group-disabled-bg:            Klist-group-bg !default;
+
+Klist-group-action-color:           Kgray-700 !default;
+Klist-group-action-hover-color:     Klist-group-action-color !default;
+
+Klist-group-action-active-color:    Kbody-color !default;
+Klist-group-action-active-bg:       Kgray-200 !default;
+// scss-docs-end list-group-variables
+
+
+// Image thumbnails
+
+// scss-docs-start thumbnail-variables
+Kthumbnail-padding:                 .25rem !default;
+Kthumbnail-bg:                      Kbody-bg !default;
+Kthumbnail-border-width:            Kborder-width !default;
+Kthumbnail-border-color:            Kgray-300 !default;
+Kthumbnail-border-radius:           Kborder-radius !default;
+Kthumbnail-box-shadow:              Kbox-shadow-sm !default;
+// scss-docs-end thumbnail-variables
+
+
+// Figures
+
+// scss-docs-start figure-variables
+Kfigure-caption-font-size:          Ksmall-font-size !default;
+Kfigure-caption-color:              Kgray-600 !default;
+// scss-docs-end figure-variables
+
+
+// Breadcrumbs
+
+// scss-docs-start breadcrumb-variables
+Kbreadcrumb-font-size:              null !default;
+Kbreadcrumb-padding-y:              0 !default;
+Kbreadcrumb-padding-x:              0 !default;
+Kbreadcrumb-item-padding-x:         .5rem !default;
+Kbreadcrumb-margin-bottom:          1rem !default;
+Kbreadcrumb-bg:                     null !default;
+Kbreadcrumb-divider-color:          Kgray-600 !default;
+Kbreadcrumb-active-color:           Kgray-600 !default;
+Kbreadcrumb-divider:                quote("/") !default;
+Kbreadcrumb-divider-flipped:        Kbreadcrumb-divider !default;
+Kbreadcrumb-border-radius:          null !default;
+// scss-docs-end breadcrumb-variables
+
+// Carousel
+
+// scss-docs-start carousel-variables
+Kcarousel-control-color:             Kwhite !default;
+Kcarousel-control-width:             15% !default;
+Kcarousel-control-opacity:           .5 !default;
+Kcarousel-control-hover-opacity:     .9 !default;
+Kcarousel-control-transition:        opacity .15s ease !default;
+
+Kcarousel-indicator-width:           30px !default;
+Kcarousel-indicator-height:          3px !default;
+Kcarousel-indicator-hit-area-height: 10px !default;
+Kcarousel-indicator-spacer:          3px !default;
+Kcarousel-indicator-opacity:         .5 !default;
+Kcarousel-indicator-active-bg:       Kwhite !default;
+Kcarousel-indicator-active-opacity:  1 !default;
+Kcarousel-indicator-transition:      opacity .6s ease !default;
+
+Kcarousel-caption-width:             70% !default;
+Kcarousel-caption-color:             Kwhite !default;
+Kcarousel-caption-padding-y:         1.25rem !default;
+Kcarousel-caption-spacer:            1.25rem !default;
+
+Kcarousel-control-icon-width:        2rem !default;
+
+Kcarousel-control-prev-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{Kcarousel-control-color}'><path d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/></svg>") !default;
+Kcarousel-control-next-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{Kcarousel-control-color}'><path d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/></svg>") !default;
+
+Kcarousel-transition-duration:       .6s !default;
+Kcarousel-transition:                transform Kcarousel-transition-duration ease-in-out !default; // Define transform transition first if using multiple transitions (e.g., `transform 2s ease, opacity .5s ease-out`)
+
+Kcarousel-dark-indicator-active-bg:  Kblack !default;
+Kcarousel-dark-caption-color:        Kblack !default;
+Kcarousel-dark-control-icon-filter:  invert(1) grayscale(100) !default;
+// scss-docs-end carousel-variables
+
+
+// Spinners
+
+// scss-docs-start spinner-variables
+Kspinner-width:           2rem !default;
+Kspinner-height:          Kspinner-width !default;
+Kspinner-vertical-align:  -.125em !default;
+Kspinner-border-width:    .25em !default;
+Kspinner-animation-speed: .75s !default;
+
+Kspinner-width-sm:        1rem !default;
+Kspinner-height-sm:       Kspinner-width-sm !default;
+Kspinner-border-width-sm: .2em !default;
+// scss-docs-end spinner-variables
+
+
+// Close
+
+// scss-docs-start close-variables
+Kbtn-close-width:            1em !default;
+Kbtn-close-height:           Kbtn-close-width !default;
+Kbtn-close-padding-x:        .25em !default;
+Kbtn-close-padding-y:        Kbtn-close-padding-x !default;
+Kbtn-close-color:            Kblack !default;
+Kbtn-close-bg:               url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{Kbtn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
+Kbtn-close-focus-shadow:     Kinput-btn-focus-box-shadow !default;
+Kbtn-close-opacity:          .5 !default;
+Kbtn-close-hover-opacity:    .75 !default;
+Kbtn-close-focus-opacity:    1 !default;
+Kbtn-close-disabled-opacity: .25 !default;
+Kbtn-close-white-filter:     invert(1) grayscale(100%) brightness(200%) !default;
+// scss-docs-end close-variables
+
+
+// Offcanvas
+
+// scss-docs-start offcanvas-variables
+Koffcanvas-padding-y:               Kmodal-inner-padding !default;
+Koffcanvas-padding-x:               Kmodal-inner-padding !default;
+Koffcanvas-horizontal-width:        400px !default;
+Koffcanvas-vertical-height:         30vh !default;
+Koffcanvas-transition-duration:     .3s !default;
+Koffcanvas-border-color:            Kmodal-content-border-color !default;
+Koffcanvas-border-width:            Kmodal-content-border-width !default;
+Koffcanvas-title-line-height:       Kmodal-title-line-height !default;
+Koffcanvas-bg-color:                Kmodal-content-bg !default;
+Koffcanvas-color:                   Kmodal-content-color !default;
+Koffcanvas-box-shadow:              Kmodal-content-box-shadow-xs !default;
+Koffcanvas-backdrop-bg:             Kmodal-backdrop-bg !default;
+Koffcanvas-backdrop-opacity:        Kmodal-backdrop-opacity !default;
+// scss-docs-end offcanvas-variables
+
+// Code
+
+Kcode-font-size:                    Ksmall-font-size !default;
+Kcode-color:                        Kpink !default;
+
+Kkbd-padding-y:                     .2rem !default;
+Kkbd-padding-x:                     .4rem !default;
+Kkbd-font-size:                     Kcode-font-size !default;
+Kkbd-color:                         Kwhite !default;
+Kkbd-bg:                            Kgray-900 !default;
+
+Kpre-color:                         null !default;
