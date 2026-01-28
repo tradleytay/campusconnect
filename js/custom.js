@@ -1,3 +1,4 @@
+
 (function () {
 
 	'use strict'
@@ -121,5 +122,44 @@
 	tinySdlier();
 
 
+	// Welcome modal: show on load and wire up buttons
+	window.addEventListener('load', function() {
+		try {
+			var modal = document.getElementById('welcome-modal');
+			var btnAcc = document.getElementById('btn-accommodations');
+			var btnContact = document.getElementById('btn-contact');
+			var btnClose = document.getElementById('welcome-close');
 
-})()
+			if (!modal) return;
+
+			// small delay so loader finishes then modal appears
+			setTimeout(function(){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }, 350);
+
+			// click outside to close
+			modal.addEventListener('click', function(e){
+				if (e.target === modal) {
+					modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+				}
+			});
+
+			if (btnClose) btnClose.addEventListener('click', function(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); });
+
+			if (btnAcc) btnAcc.addEventListener('click', function(){
+				modal.classList.remove('show');
+				window.location.href = 'properties.html';
+			});
+
+			if (btnContact) btnContact.addEventListener('click', function(){
+				modal.classList.remove('show');
+				window.location.href = 'contact.html';
+			});
+		} catch (err) {
+			// fail silently if anything goes wrong
+			console.error('Welcome modal error:', err);
+		}
+	});
+
+	// Theme toggle: persist in localStorage and apply across pages
+
+
+})();

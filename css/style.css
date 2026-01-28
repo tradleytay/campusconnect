@@ -36,8 +36,8 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #00204a;
   --bs-secondary: #005555;
+  --bs-primary: #00204a;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
   --bs-warning: #ffc107;
@@ -55,7 +55,8 @@
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg-rgb: 255, 255, 255;
+  /* soften page background to reduce overall brightness */
+  --bs-body-bg-rgb: 242, 246, 245; /* light muted */
   --bs-font-sans-serif: "Work Sans", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
@@ -64,7 +65,41 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
-  --bs-body-bg: #fff; }
+  --bs-body-bg: #f2f6f5; }
+
+/* Reduce brightness: muted surfaces and stronger hero overlay */
+body {
+  background-color: var(--bs-body-bg);
+  color: #222; /* slightly darker text for contrast on muted bg */
+}
+
+/* Slightly tinted card / section backgrounds to avoid stark white */
+.card,
+.section,
+.site-footer,
+.property-content,
+.testimonial,
+.box-feature {
+  background-color: #fbfdfc; /* very light, muted off-white */
+}
+
+/* Darker hero overlay so images don't read too bright */
+.hero .img.overlay,
+.hero.page-inner.overlay::before {
+  background-color: rgba(0,0,0,0.35) !important; /* stronger dim */
+}
+
+/* Make modal box slightly darker background for less contrast */
+.welcome-modal-box {
+  background: #fbfbfb;
+}
+
+/* Muted link hover colors */
+a:hover, .site-nav .site-menu li a:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
 
 *,
 *::before,
@@ -10375,3 +10410,49 @@ nav[aria-label="breadcrumb"] li:before {
       .site-footer .social li a:hover {
         background: #00204a;
         color: #fff; }
+
+/* Welcome modal styles */
+#welcome-modal.welcome-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 1100;
+  padding: 1rem;
+}
+#welcome-modal.welcome-modal.show {
+  display: flex;
+}
+.welcome-modal-box {
+  background: #fff;
+  max-width: 520px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+}
+.welcome-modal-box h2 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+.welcome-modal-box p { color: #333; margin-bottom: 1rem; }
+.welcome-actions { display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; }
+.welcome-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width:480px){
+  .welcome-modal-box{ padding:1rem; }
+  .welcome-actions{ flex-direction:column; }
+}
