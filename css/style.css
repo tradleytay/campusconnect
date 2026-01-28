@@ -10456,3 +10456,30 @@ nav[aria-label="breadcrumb"] li:before {
   .welcome-modal-box{ padding:1rem; }
   .welcome-actions{ flex-direction:column; }
 }
+
+/* --- Custom responsive tweaks for logo, nav, and footer --- */
+/* Logo: keep it consistent and responsive */
+.site-navigation .logo img {
+  max-height: 72px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 991px){
+  .site-navigation .logo img {
+    max-height: 56px;
+  }
+}
+
+/* Hide certain footer columns on small screens to reduce clutter */
+.hide-on-mobile { display: block; }
+@media (max-width: 767px) {
+  .hide-on-mobile { display: none !important; }
+}
+
+/* Small spacing tweak to keep nav from wrapping when logo is wider */
+@media (min-width: 768px) {
+  .site-navigation .site-menu { margin-right: 0; }
+}
+
