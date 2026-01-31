@@ -1197,7 +1197,7 @@ function hasOption (item) {
   }
 
   function initSliderTransform () {
-    // ## images loaded/failed
+    // ## image loaded/failed
     if (hasOption('autoHeight') || autoWidth || !horizontal) {
       var imgs = container.querySelectorAll('img');
 
@@ -2288,7 +2288,7 @@ function getImageArray (start, end, imgSelector) {
   return imgs;
 }
 
-  // check if all visible images are loaded
+  // check if all visible image are loaded
   // and update container height if it's done
   function doAutoHeight () {
     var imgs = getImageArray.apply(null, getVisibleSlideRange());
@@ -2296,7 +2296,7 @@ function getImageArray (start, end, imgSelector) {
   }
 
   function imgsLoadedCheck (imgs, cb) {
-    // execute callback function if all images are complete
+    // execute callback function if all image are complete
     if (imgsComplete) { return cb(); }
 
     // check image classes
@@ -2305,7 +2305,7 @@ function getImageArray (start, end, imgSelector) {
       if (hasClass(img, imgCompleteClass)) { imgs.splice(index, 1); }
     });
 
-    // execute callback function if selected images are all complete
+    // execute callback function if selected image are all complete
     if (!imgs.length) { return cb(); }
 
     // otherwise execute this functiona again
@@ -2652,7 +2652,7 @@ function getImageArray (start, end, imgSelector) {
   // 2. add classes to visible slide
   // 3. disable controls buttons when reach the first/last slide in non-loop slider
   // 4. update nav status
-  // 5. lazyload images
+  // 5. lazyload image
   // 6. update container height
   function onTransitionEnd (event) {
     // check running on gallery mode

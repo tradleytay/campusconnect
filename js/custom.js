@@ -57,7 +57,7 @@
 
 
 		if ( imgPropertySlider.length > 0 ) {
-			var tnsPropertyImageSlider = tns({
+			var tnsPropertyimagelider = tns({
 				container: '.img-property-slide',
 				mode: 'carousel',
 				speed: 700,

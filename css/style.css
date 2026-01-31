@@ -83,7 +83,7 @@ body {
   background-color: #fbfdfc; /* very light, muted off-white */
 }
 
-/* Darker hero overlay so images don't read too bright */
+/* Darker hero overlay so image don't read too bright */
 .hero .img.overlay,
 .hero.page-inner.overlay::before {
   background-color: rgba(0,0,0,0.35) !important; /* stronger dim */
@@ -10046,7 +10046,7 @@ textarea {
     content: "";
     width: 412px;
     height: 220px;
-    background: url("../images/dots.png") no-repeat; }
+    background: url("../image/dots.png") no-repeat; }
 
 .social a {
   text-decoration: none;
